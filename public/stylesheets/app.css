@@ -222,8 +222,17 @@ section {
   padding: 50px 0;
 }
 section h2 {
-  font-size: 50px;
+  font-size: 55px;  
 }
+
+.titlize{
+  font-family: 'Secular One';
+  background: -webkit-linear-gradient(to left, #ff9000, #ff9000);
+  background: linear-gradient(to left, #ff9000, #ff9000);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 section.download {
   padding: 150px 0;
   position: relative;
@@ -284,8 +293,8 @@ section.features .feature-item h3 {
 }
 section.features .feature-item i {
   font-size: 80px;
-  background: -webkit-linear-gradient(to left, #7474BF, #348AC7);
-  background: linear-gradient(to left, #7474BF, #348AC7);
+  background: -webkit-linear-gradient(to left, #ff9000, #ff9000);
+  background: linear-gradient(to left, #ff9000, #ff9000);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
