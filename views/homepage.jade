@@ -1,0 +1,54 @@
+extends layout
+
+block content   
+  section#features.features
+    .container
+      .section-heading.text-center
+        h2(style="font-family: 'Secular One';color: #348AC7;") 
+          | רוצים לנצל את מרבית המבצעים של הסופרים 
+        h2(style="font-family: 'Secular One';color: #348AC7;")   
+          | ? ולחסוך אלפי שקלים בשנה
+        a.btn.btn-primary.mt-4(type="button",  href='http://m.me/2033518136685348')
+          i.fab.fa-facebook-messenger.fa-3x.align-middle
+          span.ml-2.align-middle(style="font-size: larger;") 
+            | דברו עם צ'טבוט החכם שלנו
+        hr
+      .row
+        .col-lg-4.my-auto
+          .device-container
+            .device-mockup.iphone6_plus.portrait.white
+              .device
+                .screen
+                  // Demo image for screen mockup, you can put an image here, some HTML, an animation, video, or anything else!
+                  img.img-fluid(src='img/mivtsaim1.png', alt='')
+                .button
+                  // You can hook the "home button" to some JavaScript events or just remove it
+        .col-lg-8.my-auto
+          .container-fluid
+            .row
+              .col-lg-6
+                .feature-item
+                  i.fas.fa-percent.text-primary
+                  h3.mt-3 חיסכון בדרך
+                  p.text-muted תראו איך המחירים של המוצרים משתנים בין סופרים מקומים ובאינטרנט. תנצלו את המבצעים וקופונים אישיים שחוסכים עשרות שקלים בקניה
+              .col-lg-6
+                .feature-item
+                  i.fas.fa-list-ol.text-primary
+                  h3.mt-3 תכנון מראש
+                  p.text-muted רשימת הקניות החכמה שלכם בכל מקום ובכל עת. תעיפו את רשימות כתובות על הנייר. ובוודי אין צורך בלזכור אותה
+            .row
+              .col-lg-6
+                .feature-item
+                  i.fas.fa-user-friends.text-primary
+                  h3.mt-3 חבר חכם
+                  p.text-muted רובוט או בעצם צטבוט שמבין טוב מאוד את שפת בן אדם. עם גישה למאגר מבצעים ענק תמיד ישמח לתת שרות חסכון.                  
+              .col-lg-6
+                .feature-item
+                  i.fas.fa-shopping-basket.text-primary
+                  h3.mt-3 יאללה קניות
+                  p.text-muted מזל טוב! יש לך עכשיו את כל המידע הדרוש לך כדי לקבל החלטה בהירה על הסל שלך. תעקבו לאחר רשימה בזמן אמת ותחסכו שקלים
+
+  footer
+    .container
+      p 2019, mivtsa.im כל הזכויות שמורות לאתר@
+  
