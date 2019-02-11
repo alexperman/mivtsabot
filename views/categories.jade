@@ -1,0 +1,304 @@
+extends webviewlayout
+
+block content   
+  .main-container
+    #container.container
+      .page.home.js_show
+        .page__hd
+          h1  קטגוריות 
+          p.page__desc
+            | קטגוריות המבצעים ניתנות לבחירה.
+        .page__bd.page__bd_spacing
+          ul
+            li
+              .webvUI-flex.js_category
+                p.webvUI-flex__item מוצרי חלב וביצים  
+                img(src='/img/icons/milk-eggs.png', alt='')
+              .page__category.js_categoryInner
+                .webvUI-cells.page__category-content
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  ביצים 
+                    .webvUI-cell__ft
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  חלב ומשקאות חלב 
+                    .webvUI-cell__ft
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  גבינות 
+                    .webvUI-cell__ft
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  יוגורטים ומעדנים 
+                    .webvUI-cell__ft
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  חמאה, מרגרינה ושמנת 
+                    .webvUI-cell__ft
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  גלידות 
+                    .webvUI-cell__ft
+            li
+              .webvUI-flex.js_category
+                p.webvUI-flex__item  פירות וירקות
+                img(src='/img/icons/carrot.png', alt='')
+              .page__category.js_categoryInner
+                .webvUI-cells.page__category-content
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  פירות 
+                    .webvUI-cell__ft
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  ירקות 
+                    .webvUI-cell__ft
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  פיצוחים 
+                    .webvUI-cell__ft                  
+            li
+              .webvUI-flex.js_category
+                p.webvUI-flex__item  בשר ודגים
+                img(src='/img/icons/meat.png', alt='')
+              .page__category.js_categoryInner
+                .webvUI-cells.page__category-content
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  עוף 
+                    .webvUI-cell__ft
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  בשר 
+                    .webvUI-cell__ft
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  נקניקים ופסטרמות
+                    .webvUI-cell__ft
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  על האש 
+                    .webvUI-cell__ft
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  דגים 
+                    .webvUI-cell__ft                  
+            li
+              .webvUI-flex.js_category
+                p.webvUI-flex__item  מאפים
+                img(src='/img/icons/bread.png', alt='')
+              .page__category.js_categoryInner
+                .webvUI-cells.page__category-content
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  לחמים ומאפים 
+                    .webvUI-cell__ft
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  מאפים טריים 
+                    .webvUI-cell__ft
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  עוגות ועוגיות
+                    .webvUI-cell__ft
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  קרקר ופריכיות
+                    .webvUI-cell__ft
+            li
+              .webvUI-flex.js_category
+                p.webvUI-flex__item  מכולת 
+                img(src='/img/icons/box.png', alt='')
+              .page__category.js_categoryInner
+                .webvUI-cells.page__category-content
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  קפואים 
+                    .webvUI-cell__ft
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  שמן וחומץ 
+                    .webvUI-cell__ft
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  אפייה 
+                    .webvUI-cell__ft
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  מרקים ותבשילים 
+                    .webvUI-cell__ft
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  רטבים 
+                    .webvUI-cell__ft
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  דבש, ריבה וממרחים 
+                    .webvUI-cell__ft
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  תבלינים 
+                    .webvUI-cell__ft
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  דגנים 
+                    .webvUI-cell__ft
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  חטיפים מלוחים 
+                    .webvUI-cell__ft
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  חטיפים מתוקים 
+                    .webvUI-cell__ft
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  פסטה, אורז וקטניות 
+                    .webvUI-cell__ft
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  שימורים 
+                    .webvUI-cell__ft                  
+            li
+              .webvUI-flex.js_category
+                p.webvUI-flex__item  משקאות 
+                img(src='/img/icons/drinks.png', alt='')
+              .page__category.js_categoryInner
+                .webvUI-cells.page__category-content
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  משקאות קלים
+                    .webvUI-cell__ft
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  משקאות חמים 
+                    .webvUI-cell__ft
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  יין ואלכוהול 
+                    .webvUI-cell__ft
+            li
+              .webvUI-flex.js_category
+                p.webvUI-flex__item  פארם ותינוקות 
+                img(src='/img/icons/pills.png', alt='')
+              .page__category.js_categoryInner
+                .webvUI-cells.page__category-content
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  גילוח והסרת שער 
+                    .webvUI-cell__ft
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  שמפו וסבונים 
+                    .webvUI-cell__ft
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  היגיינת הפה 
+                    .webvUI-cell__ft
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  טיפוח פנים וגוף 
+                    .webvUI-cell__ft
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  היגיינת נשית 
+                    .webvUI-cell__ft
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  פארם 
+                    .webvUI-cell__ft
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  חיטולים ומגבונים 
+                    .webvUI-cell__ft
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  מזון לתינוקות 
+                    .webvUI-cell__ft
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  טיפוח ואביזורי תינוקות 
+                    .webvUI-cell__ft
+            li
+              .webvUI-flex.js_category
+                p.webvUI-flex__item  נקיון 
+                img(src='/img/icons/broom.png', alt='')
+              .page__category.js_categoryInner
+                .webvUI-cells.page__category-content
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  ניקוי כללי 
+                    .webvUI-cell__ft
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  ניקוי כלים 
+                    .webvUI-cell__ft
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  מוצרי כביסה 
+                    .webvUI-cell__ft
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  אביזרי נקיון 
+                    .webvUI-cell__ft
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  אקונומיקה 
+                    .webvUI-cell__ft
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  ניקוי אסלה ואמבטיה 
+                    .webvUI-cell__ft
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  ניקוי מטבח וחלונות 
+                    .webvUI-cell__ft
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  ניקוי רצפה וכללי 
+                    .webvUI-cell__ft
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  מוצרי נייר 
+                    .webvUI-cell__ft
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  עטיפות, שקיות ותבניות 
+                    .webvUI-cell__ft
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  נרות ומטהרי אוויר 
+                    .webvUI-cell__ft
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  מוצרי בעלי חיים
+                    .webvUI-cell__ft
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  קוטלי חרקים 
+                    .webvUI-cell__ft
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  פיקניק עתונים וסיגריות 
+                    .webvUI-cell__ft
+            li
+              .webvUI-flex.js_category
+                p.webvUI-flex__item  בריאות ואורגני
+                img(src='/img/icons/cells.png', alt='')
+              .page__category.js_categoryInner
+                .webvUI-cells.page__category-content
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  טופו, סייטן וצמחי
+                    .webvUI-cell__ft
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  ללא גלוטן 
+                    .webvUI-cell__ft
+                  a.webvUI-cell.webvUI-cell_access.js_item(href='/webview/toolkit/showcase/navigation_sub')
+                    .webvUI-cell__bd
+                      p  דיאט וללא סוכר 
+                    .webvUI-cell__ft
+    script.
+      function closeWebview(){MessengerExtensions.requestCloseBrowser(function success(){},function error(err){alert(err);});};
