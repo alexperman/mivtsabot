@@ -1,0 +1,57 @@
+extends webviewlayout
+
+block content   
+  .main-container
+      .webvUI-mainwv-body.panel
+        .page__hd
+          h1.page__title רשימת המבצעים שלי
+          p.page__desc  שופרסל דיל, רח הרצל 12, הרצליה פיתוח
+        .page__bd
+          .webvUI-cells__title לסמן למחיקה
+          .webvUI-cells.webvUI-cells_checkbox
+            label.webvUI-cell.webvUI-check__label(for='s11')
+              .webvUI-cell__hd
+                input#s11.webvUI-check(type='checkbox', name='checkbox1', checked='checked')
+                i.webvUI-icon-checked
+              .webvUI-cell__bd
+                .webvUI-media-box.webvUI-media-box_appmsg
+                  .webvUI-media-box__bd
+                    h4.webvUI-media-box__title טונה סטארקיסט מארז - סטארקיסט
+                    p.webvUI-media-box__desc מחיר במבצע: 
+                      span(style="font-weight: bold; font-size: 14px;") 9.90 ₪ 
+                      span וחסכון: 
+                      span(style="font-weight: bold; font-size: 14px;color: #05c000") 4.00 ₪
+                  .webvUI-media-box__hd(style='margin-right: 1.8em;')
+                    img.webvUI-media-box__thumb(src='http://www.shufersal.co.il/_layouts/images/Shufersal/Images/Products_Extralarge/e_7290013847102.PNG', alt='')
+            label.webvUI-cell.webvUI-check__label(for='s12')
+              .webvUI-cell__hd
+                input#s12.webvUI-check(type='checkbox', name='checkbox1')
+                i.webvUI-icon-checked
+              .webvUI-cell__bd
+                .webvUI-media-box.webvUI-media-box_appmsg
+                  .webvUI-media-box__bd
+                    h4.webvUI-media-box__title טונה סטארקיסט מארז - סטארקיסט
+                    p.webvUI-media-box__desc מחיר במבצע: 
+                      span(style="font-weight: bold; font-size: 14px;") 9.90 ₪ 
+                      span וחסכון: 
+                      span(style="font-weight: bold; font-size: 14px;color: #05c000") 4.00 ₪
+                  .webvUI-media-box__hd(style='margin-right: 1.8em;')
+                    img.webvUI-media-box__thumb(src='http://www.shufersal.co.il/_layouts/images/Shufersal/Images/Products_Extralarge/e_7296073272472.PNG', alt='')
+            label.webvUI-cell.webvUI-check__label(for='s13')
+              .webvUI-cell__hd
+                input#s13.webvUI-check(type='checkbox', name='checkbox1')
+                i.webvUI-icon-checked
+              .webvUI-cell__bd
+                .webvUI-media-box.webvUI-media-box_appmsg
+                  .webvUI-media-box__bd
+                    h4.webvUI-media-box__title טונה סטארקיסט מארז - סטארקיסט
+                    p.webvUI-media-box__desc מחיר במבצע: 
+                      span(style="font-weight: bold; font-size: 14px;") 9.90 ₪ 
+                      span וחסכון: 
+                      span(style="font-weight: bold; font-size: 14px;color: #05c000") 4.00 ₪
+                  .webvUI-media-box__hd(style='margin-right: 1.8em;')
+                    img.webvUI-media-box__thumb(src='http://www.shufersal.co.il/_layouts/images/Shufersal/Images/Products_Extralarge/e_7290013847102.PNG', alt='')            
+      .webvUI-bottombtn
+        a.webvUI-btn.webvUI-btn_primary(href='javascript:;', onclick='closeWebview()') חסכון מצטבר 4.00 ₪
+      script.
+        function closeWebview(){MessengerExtensions.requestCloseBrowser(function success(){},function error(err){alert(err);});};

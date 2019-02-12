@@ -1697,7 +1697,7 @@ a.webvUI-media-box:active {
 }
 
 .webvUI-media-box_appmsg .webvUI-media-box__hd {
-    margin-right: .8em;
+    margin-left: .8em;
     width: 60px;
     height: 60px;
     line-height: 60px;
