@@ -60,6 +60,11 @@ block content
               span.webvUI-icon-delete
           .webvUI-panel__ft              
     .webvUI-bottombtn
-      a.webvUI-btn.webvUI-btn_primary(href='javascript:;', onclick='closeWebview()') חסכון כולל 13.90 ₪
+      a.webvUI-btn.webvUI-btn_primary(href='http://hey.pbme.co/mnpmEF') שלם 5.00 ₪ וקבל אין סוף חיסכון ל-30 יום
     script.
-      function closeWebview(){MessengerExtensions.requestCloseBrowser(function success(){},function error(err){alert(err);});};
+      function closeWebview(){
+        MessengerExtensions.requestCloseBrowser(function success(){},
+                                                function error(err){
+                                                  alert(err);
+                                                });
+      };
