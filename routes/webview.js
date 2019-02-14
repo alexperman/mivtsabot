@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/stores', function(req, res, next) {
+router.get('/stores/:messenger_user_id', function(req, res, next) {
 	res.render('stores');
 });
 
