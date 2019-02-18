@@ -25,7 +25,7 @@ router.get('/stores/:listid/:lat/:lon', function(req, res, next) {
 							'chain': store.get("chain"),
 							'name': store.get("store_name"),
 							'img_url': chain_image[store.get("chain_uid")],
-							'distance': geolib.getDistance(current, center) 
+							'distance': (geolib.getDistance(current, center) / 1000.0 ).toFixed(2)
 						}
 					})
 				console.log("------> So we have stores "+ JSON.stringify(s))
