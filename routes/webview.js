@@ -59,7 +59,7 @@ module.exports = router;
 
 var chain_image = {
 	"7290633800006": "/img/coop.jpg",
-	"7290103152017": "/img/osherad.jpg",
+	"7290103152017": "/img/osherad.png",
 	"7290172900007": "/img/superpharm.png",
 	"7290696200003": "/img/victory.jpg",
 	"7290492000005": "/img/doralon.jpg",
