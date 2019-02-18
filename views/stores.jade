@@ -9,39 +9,18 @@ block content
         .page__bd
           .webvUI-cells__title לבחור את הסניפים
           .webvUI-cells.webvUI-cells_checkbox
-            label.webvUI-cell.webvUI-check__label(for='s11')
-              .webvUI-cell__hd
-                input#s11.webvUI-check(type='checkbox', name='checkbox1', checked='checked')
-                i.webvUI-icon-checked
-              .webvUI-cell__bd
-                .webvUI-media-box.webvUI-media-box_appmsg
-                  .webvUI-media-box__bd
-                    h4.webvUI-media-box__title מגע 
-                    p.webvUI-media-box__desc רחוב הרצל 24, הרצליה פיתוח - 0.4 קמ
-                  .webvUI-media-box__hd(style='margin-right: .8em;')
-                    img.webvUI-media-box__thumb(src='/img/mega.jpg', alt='')
-            label.webvUI-cell.webvUI-check__label(for='s12')
-              .webvUI-cell__hd
-                input#s12.webvUI-check(type='checkbox', name='checkbox1')
-                i.webvUI-icon-checked
-              .webvUI-cell__bd
-                .webvUI-media-box.webvUI-media-box_appmsg
-                  .webvUI-media-box__bd
-                    h4.webvUI-media-box__title שופרסל אקספרס
-                    p.webvUI-media-box__desc ניסנבאום 23, הרצליה, 1.3 קמ
-                  .webvUI-media-box__hd(style='margin-right: .8em;')
-                    img.webvUI-media-box__thumb(src='/img/shufersal.jpg', alt='')
-            label.webvUI-cell.webvUI-check__label(for='s13')
-              .webvUI-cell__hd
-                input#s13.webvUI-check(type='checkbox', name='checkbox1')
-                i.webvUI-icon-checked
-              .webvUI-cell__bd
-                .webvUI-media-box.webvUI-media-box_appmsg
-                  .webvUI-media-box__bd
-                    h4.webvUI-media-box__title ויקטורי שבעת הכוכבים
-                    p.webvUI-media-box__desc קניון שבעת הכוכבים, הרצליה, 2.1 קמ
-                  .webvUI-media-box__hd(style='margin-right: .8em;')
-                    img.webvUI-media-box__thumb(src='/img/victory.png', alt='')            
+            each store in data
+              label.webvUI-cell.webvUI-check__label(for=store["id"])
+                .webvUI-cell__hd
+                  input.webvUI-check(id= store["id"], type='checkbox', name='checkbox1', checked='checked')
+                  i.webvUI-icon-checked
+                .webvUI-cell__bd
+                  .webvUI-media-box.webvUI-media-box_appmsg
+                    .webvUI-media-box__bd
+                      h4.webvUI-media-box__title #{store["chain"]} 
+                      p.webvUI-media-box__desc #{store["name"]} - #{store["distance"]} טרמ
+                    .webvUI-media-box__hd(style='margin-right: .8em;')
+                      img.webvUI-media-box__thumb(src= store["img_url"], alt='')
       .webvUI-bottombtn
         a.webvUI-btn.webvUI-btn_primary(href='javascript:;', onclick='closeWebview()') עדכן רשימה
       script.
