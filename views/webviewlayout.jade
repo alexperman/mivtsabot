@@ -7,10 +7,15 @@ html(lang='he', dir="rtl")
     link(href='https://fonts.googleapis.com/css?family=Open+Sans:200,300,400,400i,500,600,700', rel='stylesheet')
     link(rel='stylesheet', href='/stylesheets/webvUI.min.css')
     link(rel='stylesheet', href='/stylesheets/webvUI-menu.min.css')
-    script(src="/javascripts/jquery-3.2.1.min.js")
+    link(rel='stylesheet', href='/stylesheets/layerjs.css')
+    link(rel='stylesheet', href='/stylesheets/app.css')
+    script(type='text/javascript', src="/javascripts/jquery-3.2.1.min.js")
     script(type='text/javascript', src='/javascripts/webvUI.min.js')
     script(type='text/javascript', src='/javascripts/webvUI-menu.js')
     script(type='text/javascript', src='/javascripts/webvUI-slider.js')
+    script(type='text/javascript', src='/javascripts/layerjs.js')
+    script(type='text/javascript', src='/javascripts/webview.js')    
+  body(style='background-color:#fafafa;')
     script(type='text/javascript').
       (function(d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0];
@@ -20,5 +25,4 @@ html(lang='he', dir="rtl")
       js.src = "https://connect.facebook.com/en_US/messenger.Extensions.js";
       fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'Messenger'));
-  body(style='background-color:#fafafa;')
     block content  

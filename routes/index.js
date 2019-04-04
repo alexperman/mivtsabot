@@ -13,7 +13,7 @@ router.get('/', function(req, res, next) {
 router.post('/userinput', function(req, res, next) {
 	console.log("----> request " + JSON.stringify(req.body))
 	res.json({
-  	"redirect_to_blocks": ["Welcome Message"]
+  	"redirect_to_blocks": ["In store Location"]
 	})
 });
 

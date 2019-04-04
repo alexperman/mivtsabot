@@ -38,6 +38,16 @@ router.get('/stores/:listid/:lat/:lon', function(req, res, next) {
 	
 });
 
+
+router.get('/instore', function(req, res, next) {
+	res.render('instore');
+})
+
+router.get('/outstore', function(req, res, next) {
+	res.render('outstore');
+})
+
+
 router.get('/categories', function(req, res, next) {
 	res.render('categories');
 });

@@ -1,7 +1,7 @@
 extends webviewlayout
 
 block content   
-  .main-container
+  #basket.main-container
       .webvUI-mainwv-body.panel
         .page__hd
           h1.page__title רשימת המבצעים שלי
@@ -53,5 +53,4 @@ block content
                     img.webvUI-media-box__thumb(src='http://www.shufersal.co.il/_layouts/images/Shufersal/Images/Products_Extralarge/e_7290013847102.PNG', alt='')            
       .webvUI-bottombtn
         a.webvUI-btn.webvUI-btn_primary(href='javascript:;', onclick='closeWebview()') חסכון מצטבר 4.00 ₪
-      script.
-        function closeWebview(){MessengerExtensions.requestCloseBrowser(function success(){},function error(err){alert(err);});};
+      
