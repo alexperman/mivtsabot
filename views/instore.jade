@@ -1,0 +1,11 @@
+extends webviewlayout
+
+block content
+  #root(data-lj-type='stage')
+    #layer1(data-lj-type='layer', data-lj-defaultframe='list')
+      div(data-lj-type='frame', data-lj-name='promos', data-lj-fitto='responsive', data-lj-startpostion='top', data-lj-neighbors.l="list")
+        include promos
+      div(data-lj-type='frame', data-lj-name='list', data-lj-fitto='responsive', data-lj-startpostion='top', data-lj-neighbors.r="promos")
+        include list  
+  .webvUI-bottombtn
+      a.webvUI-btn.webvUI-btn_primary(style="background-color: #ff9000;", href="#") חזרה לצ'ט

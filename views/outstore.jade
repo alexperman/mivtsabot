@@ -2,10 +2,10 @@ extends webviewlayout
 
 block content
   #root(data-lj-type='stage')
-    #layer1(data-lj-type='layer', data-lj-defaultframe='main')
-      div(data-lj-type='frame', data-lj-name='main', data-lj-fitto='responsive', data-lj-startpostion='top', data-lj-neighbors.l="second")
-        include discounts
-      div(data-lj-type='frame', data-lj-name='second', data-lj-fitto='responsive', data-lj-startpostion='top', data-lj-neighbors.r="main")
-        include basket  
+    #layer1(data-lj-type='layer', data-lj-defaultframe='promo')
+      div(data-lj-type='frame', data-lj-name='promo', data-lj-fitto='responsive', data-lj-startpostion='top', data-lj-neighbors.l="list")
+        include promos
+      div(data-lj-type='frame', data-lj-name='list', data-lj-fitto='responsive', data-lj-startpostion='top', data-lj-neighbors.r="promo")
+        include list  
   .webvUI-bottombtn
-      a.webvUI-btn.webvUI-btn_primary(href='http://hey.pbme.co/mnpmEF') שלם 5.00 ₪ וקבל אין סוף חיסכון ל-30 יום
+      a.webvUI-btn.webvUI-btn_primary(style="background-color: #ff9000;", href="javascript:;", onclick="closeWebview()") חזרה לצ'ט

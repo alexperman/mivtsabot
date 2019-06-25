@@ -17,5 +17,4 @@ var ListStores = db.bookshelf.Model.extend({
   }
 }); 
 
-
 module.exports = ListStores

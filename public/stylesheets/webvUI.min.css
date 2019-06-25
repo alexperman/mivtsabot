@@ -577,7 +577,7 @@ input.webvUI-btn_plain-primary {
     display: inline-block;
     height: 6px;
     width: 6px;
-    border-width:  0 0 2px 2px;
+    border-width:  0 2px 2px 0;
     border-color: #c8c8cd;
     border-style: solid;
     -webkit-transform: matrix(.71, .71, -.71, .71, 0, 0);

@@ -1,0 +1,26 @@
+#discounts.main-container
+  .panel
+    .page__hd
+      h1.page__title מבצעים לבחירה
+      p.page__desc המבצעים הכי שווים עם החיסכון המירבי
+    .page__bd
+      .webvUI-panel.webvUI-panel_access
+        - var categories = ['מכולת', 'מוצרי פארם']
+        if categories.length == 0
+          .webvUI-panel__hd(style="background-color: #f3ede0; font-size: 15px; font-weight: bold; color: #05628d;")= "רשימה ריקה"
+        else
+          each category in categories 
+            .webvUI-panel__hd(style="background-color: #f3ede0; font-size: 15px; font-weight: bold; color: #05628d;")= category
+            .webvUI-panel__bd
+              - var items = [{status: "new"}, {status: "selected", style: "background-color: aliceblue;"}];
+              if items.length == 0
+                אין מבצעים
+              else
+                each item in items
+                  include listitem
+            //.webvUI-panel__ft
+              //a.webvUI-cell.webvUI-cell_access.webvUI-cell_link(href='')
+                //.webvUI-cell__bd                                          
+
+                     
+  
