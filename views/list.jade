@@ -1,8 +1,18 @@
 .main-container
   .panel
-    .page__hd
-      h1.page__title רשימת המוצרים שלי
-      p.page__desc  רשימת המבצעים מתעדכנת אוטומטית לפי איזור גאוגרפי
+    .page__hd(style="background-color: #ff9000;")
+      div(style="background-color: #ff9000;")
+        div(style="padding: 3px; font-size: 15px;") 
+          span(style="color: black;") סה"כ לתשלום 
+          span(style="float: left; padding-left:50px;color: white;") סה"כ חסכון 
+        div
+          span(style="font-weight: bold; color: black;") 
+            span(style="padding-right: 10px; font-size: 32px;") 352.50 
+            span(style="font-size: 20px; ") ₪
+          span(style="float: left; padding-left:10px; font-weight: bold; color: white;")
+            img(src='/img/saved-bg.jpg', alt='', style="height: 35px;")
+            span(style="font-size: 24px; padding-right:10px;") 52.50 
+            span(style="font-size: 20px; ") ₪
     .page__bd
       .webvUI-panel.webvUI-panel_access
         - var categories = ['מוצרי חלב', 'בשר ודגים']
