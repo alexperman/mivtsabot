@@ -4,17 +4,8 @@ var router = express.Router();
 var Store = require('../models/store');
 var Location = require('../models/location');
 
-
-let Wit = null;
-let log = null;
-try {
-  // if running from repo
-  Wit = require('../').Wit;
-  log = require('../').log;
-} catch (e) {
-  Wit = require('node-wit').Wit;
-  log = require('node-wit').log;
-}
+let Wit = require('node-wit').Wit;
+let log = require('node-wit').log;
 
 const WIT_TOKEN = process.env.WIT_TOKEN || "ZQMUMBSYZRXKHA4MSBM4Y7HMVXYXHTMF";
 
@@ -35,6 +26,7 @@ router.get('/', function(req, res, next) {
 
 // Message handler
 router.post('/webhook', (req, res) => {
+  console.log(wit);
   // Parse the Messenger payload
   // See the Webhook reference
   // https://developers.facebook.com/docs/messenger-platform/webhook-reference
