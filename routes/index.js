@@ -51,15 +51,17 @@ router.post('/webhook', (req, res) => {
           // We could retrieve the user's current session, or create one if it doesn't exist
           // This is useful if we want our bot to figure out the conversation history
           // const sessionId = findOrCreateSession(sender);
-
+          console.log(event.message);
           // We retrieve the message content
           const {text, attachments} = event.message;
 
           if (attachments) {
+            console.log(attachments);
             // We received an attachment
             // Let's reply with an automatic message            
             messenger.sendTextMessage(sender, 'Sorry I can only process text messages for now.');            
           } else if (text) {
+            console.log(text);
             // We received a text message
             // Let's run /message on the text to extract some entities
             wit.message(text).then(({entities}) => {
