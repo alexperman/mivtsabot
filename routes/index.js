@@ -3,12 +3,19 @@ var router = express.Router();
 
 var Store = require('../models/store');
 var Location = require('../models/location');
-const {Wit, log} = require('node-wit');
 
+
+const {Wit, log} = require('node-wit');
 const client = new Wit({
   accessToken: "ZQMUMBSYZRXKHA4MSBM4Y7HMVXYXHTMF",
   logger: new log.Logger(log.DEBUG) // optional
 });
+
+const FB_VERIFY_TOKEN = process.env.FB_VERIFY_TOKEN;
+const FB_PAGE_TOKEN = process.env.FB_PAGE_TOKEN;
+const FBMessenger = require('../middlewares/fb-messenger');
+const messenger = new FBMessenger(FB_PAGE_TOKEN);
+
 
 router.get('/', function(req, res, next) {
 	res.render('homepage');
@@ -16,7 +23,6 @@ router.get('/', function(req, res, next) {
 
 
 router.post('/webhook', (req, res) => {  
- 
   let body = req.body;
 
   // Checks this is an event from a page subscription
@@ -42,10 +48,6 @@ router.post('/webhook', (req, res) => {
 
 // Adds support for GET requests to our webhook
 router.get('/webhook', (req, res) => {
-
-  // Your verify token. Should be a random string.
-  let VERIFY_TOKEN = "EAAHxiqhXpPEBANZBmplAaPMtSvjSvwF6jwHzK5sUcw7f2YJOeoWcyNASldwH4C3WnlIOSOiaBPvDDZAVGYllxWj8ZAyhCwIgsTwP4eli9rsT22ozN23v2ZAFLLw4JgBlSa5iJHttBc2RiV6WJRjTbZAIMTyQFA2oxeoL6jjvP2QZDZD"
-    
   // Parse the query params
   let mode = req.query['hub.mode'];
   let token = req.query['hub.verify_token'];
@@ -55,7 +57,7 @@ router.get('/webhook', (req, res) => {
   if (mode && token) {
   
     // Checks the mode and token sent is correct
-    if (mode === 'subscribe' && token === VERIFY_TOKEN) {
+    if (mode === 'subscribe' && token === FB_VERIFY_TOKEN) {
       
       // Responds with the challenge token from the request
       console.log('WEBHOOK_VERIFIED');
