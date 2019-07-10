@@ -58,8 +58,7 @@ router.post('/webhook', (req, res) => {
           if (attachments) {
             // We received an attachment
             // Let's reply with an automatic message            
-            messenger.sendTextMessage(sender, 'Sorry I can only process text messages for now.');
-            .catch(console.error);
+            messenger.sendTextMessage(sender, 'Sorry I can only process text messages for now.');            
           } else if (text) {
             // We received a text message
             // Let's run /message on the text to extract some entities
