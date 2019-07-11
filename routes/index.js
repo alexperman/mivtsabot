@@ -59,7 +59,7 @@ router.post('/webhook', (req, res) => {
               // You can customize your response to these entities
               console.log(entities);
               // For now, let's reply with another automatic message
-              messenger.sendTextMessage(sender, 'We have received your message: ' + text);
+              messenger.sendTextMessage(sender, 'wit.ai: ' + JSON.stringify(entities));
             })
             .catch((err) => {
               console.error('Oops! Got an error from Wit: ', err.stack || err);
