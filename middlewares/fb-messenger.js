@@ -1,5 +1,9 @@
 var request = require('request')
 
+// Persona
+const TOMER_PERSONA_ID = "451985582288820"
+
+
 function FBMessenger (token, notification_type) {
   this.token = token
   this.notification_type = notification_type || 'REGULAR'
@@ -146,7 +150,8 @@ FBMessenger.prototype.sendMessage = function (id, data, notification_type, cb) {
     json: {
       recipient: {id: id},
       message: data,
-      notification_type: notification_type
+      notification_type: notification_type,
+      persona_id: TOMER_PERSONA_ID
     }
   }
   request(req, function (err, res, body) {
