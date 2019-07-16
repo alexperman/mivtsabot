@@ -1,13 +1,16 @@
 var express = require('express');
 var router = express.Router();
 
+var fs = require('fs');
+var parse = require('csv-parse');
+var request = require('request')
 var Store = require('../models/store');
 var Location = require('../models/location');
 
 let Wit = require('node-wit').Wit;
 let log = require('node-wit').log;
 
-const WIT_TOKEN = process.env.WIT_TOKEN || "ZQMUMBSYZRXKHA4MSBM4Y7HMVXYXHTMF";
+const WIT_TOKEN = "5X45AZF44P4Z7XSZFHUELXGTUYFEDLRI" ; //|| "ZQMUMBSYZRXKHA4MSBM4Y7HMVXYXHTMF" // mivtsaim;
 
 const FB_VERIFY_TOKEN = process.env.FB_VERIFY_TOKEN;
 const FB_PAGE_TOKEN = process.env.FB_PAGE_TOKEN;
@@ -97,14 +100,51 @@ router.get('/webhook', (req, res) => {
   }
 });
 
-router.post('/userinput', function(req, res, next) {
-	body = req.body
-	console.log("----> request " + body["userinput"])
-	console.log(client.message(body["userinput"]));
-	res.json({
-  	"redirect_to_blocks": ["In store Location"]
-	})
+router.get('/loadcities', function(req, res, next) {
+  //var csvData=[];
+  fs.createReadStream('cities_7112019.csv')
+    .pipe(parse({delimiter: ','}))
+    .on('data', function(csvrow) {
+        city_text = csvrow[0]        
+        //do something with csvrow
+        wit.message(city_text).then(({entities}) => {    
+          console.log("\n\t City:  " + city_text + " parsed to: " + JSON.stringify(entities));
+        })        
+    })
+    .on('end',function() {
+      //do something wiht csvData
+      //console.log(csvData);
+      res.sendStatus(200);
+    });
 });
+
+
+router.get('/onboarding', function(req, res, next){
+  fs.createReadStream('../onboarding/address_7152019.csv')
+    .pipe(parse({delimiter: ','}))
+    .on('data', function(csvrow) {
+      data_text = csvrow[0]        
+      //do something with csvrow
+      var req = {
+        url: ' https://api.wit.ai/entities/address/values',
+        headers: { Authorization: 'Bearer 5X45AZF44P4Z7XSZFHUELXGTUYFEDLRI',
+                   'Content-Type': 'application/json'
+                  },
+        method: 'POST',
+        json: {
+          "value": data_text
+        }
+      }
+      request(req, function (err, res, body) {})       
+    })
+    .on('end',function() {
+      //do something wiht csvData
+      //console.log(csvData);
+      res.sendStatus(200);
+    });
+
+})
+
 
 module.exports = router;
 
