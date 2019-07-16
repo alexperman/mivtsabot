@@ -2,7 +2,10 @@ var request = require('request')
 
 // Persona
 const TOMER_PERSONA_ID = "451985582288820"
-
+const AVI_PERSONA_ID = "333321727605996"
+const HILA_PERSONA_ID = "371213160254726"
+const KEREN_PERSONA_ID = "500650940677315"
+const YARON_PERSONA_ID = "2454054581496199"
 
 function FBMessenger (token, notification_type) {
   this.token = token
@@ -151,7 +154,7 @@ FBMessenger.prototype.sendMessage = function (id, data, notification_type, cb) {
       recipient: {id: id},
       message: data,
       notification_type: notification_type,
-      persona_id: TOMER_PERSONA_ID
+      persona_id: HILA_PERSONA_ID
     }
   }
   request(req, function (err, res, body) {
