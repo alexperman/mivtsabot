@@ -84,9 +84,10 @@ router.post('/webhook', (req, res) => {
             console.log(text);
             wit.message(text).then(({entities}) => {              
               console.log(entities);
-              messenger.routeIntents(sender, entities, session, function(){
+              messenger.routeIntents(sender, entities, session, (stop)=>{
                 _.extend(sessions[sessionId], session);
                 messenger.stopTyping(sender, session, ()=>{}) 
+                if(stop == true){ delete sessions[sessionId];}
               });
             })
             .catch((err) => {

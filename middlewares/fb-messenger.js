@@ -142,6 +142,7 @@ FBMessenger.prototype.stopTyping = function (id, session, cb) {
 
 FBMessenger.prototype.routeIntents = function (id, entities, session, cb){
   var intent  = entities["intent"]
+  var stop = false;
 
   if(intent){
     session.context.push(entities)
@@ -158,7 +159,8 @@ FBMessenger.prototype.routeIntents = function (id, entities, session, cb){
       case 'products':
         // code block
         break;
-      case 'goodbye':        
+      case 'goodbye': 
+        stop = true;       
         data = dataTextMessage('שמחתי לעזור');
         break;
       case 'greeting':                
@@ -181,19 +183,16 @@ FBMessenger.prototype.routeIntents = function (id, entities, session, cb){
       persona_id: session.persona["id"] 
     }
   var token = {access_token: this.token};
-  sendMessage(token, body, cb);
+  sendMessage(token, body, cb(stop));
 }
-
 
 FBMessenger.prototype.getPersona = function () {
   return personas[Math.floor(Math.random()*personas.length)];
 }
 
-
 function FBMessenger (token) {
   this.token = token
 }
-
 
 module.exports = FBMessenger
 
