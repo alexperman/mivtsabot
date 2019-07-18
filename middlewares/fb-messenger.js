@@ -1,26 +1,23 @@
 var request = require('request')
 
 // Persona
-const TOMER_PERSONA_ID = "451985582288820"
-const AVI_PERSONA_ID = "333321727605996"
-const HILA_PERSONA_ID = "371213160254726"
-const KEREN_PERSONA_ID = "500650940677315"
-const YARON_PERSONA_ID = "2454054581496199"
+var TOMER_PERSONA = { "name": "תומר", "id" : "451985582288820"}
+var AVI_PERSONA= { "name": "תומר", "id" : "333321727605996"}
+var HILA_PERSONA = { "name": "תומר", "id" : "371213160254726"}
+var KEREN_PERSONA = { "name": "תומר", "id" : "500650940677315"}
+var YARON_PERSONA = { "name": "תומר", "id" : "2454054581496199"}
 
-function FBMessenger (token, notification_type) {
-  this.token = token
-  this.notification_type = notification_type || 'REGULAR'
-}
+var personas = [TOMER_PERSONA, AVI_PERSONA, HILA_PERSONA, KEREN_PERSONA, YARON_PERSONA]
 
-FBMessenger.prototype.sendTextMessage = function (id, text, notification_type, cb) {
-  var messageData = {
+
+var dataTextMessage = function (text) {
+  return {
     text: text
   }
-  this.sendMessage(id, messageData, notification_type, cb)
 }
 
-FBMessenger.prototype.sendImageMessage = function (id, imageURL, notification_type, cb) {
-  var messageData = {
+var dataImageMessage = function (imageURL) {
+  return {
     'attachment': {
       'type': 'image',
       'payload': {
@@ -28,12 +25,10 @@ FBMessenger.prototype.sendImageMessage = function (id, imageURL, notification_ty
       }
     }
   }
-  this.sendMessage(id, messageData, notification_type, cb)
 }
 
-FBMessenger.prototype.sendGenericMessage =
-FBMessenger.prototype.sendHScrollMessage = function (id, elements, notification_type, cb) {
-  var messageData = {
+var dataHScrollMessage = function (elements) {
+  return {
     'attachment': {
       'type': 'template',
       'payload': {
@@ -42,12 +37,10 @@ FBMessenger.prototype.sendHScrollMessage = function (id, elements, notification_
       }
     }
   }
-  this.sendMessage(id, messageData, notification_type, cb)
 }
 
-FBMessenger.prototype.sendButtonMessage =
-FBMessenger.prototype.sendButtonsMessage = function (id, text, buttons, notification_type, cb) {
-  var messageData = {
+var dataButtonsMessage = function (text, buttons) {
+  return {
     'attachment': {
       'type': 'template',
       'payload': {
@@ -57,31 +50,28 @@ FBMessenger.prototype.sendButtonsMessage = function (id, text, buttons, notifica
       }
     }
   }
-  this.sendMessage(id, messageData, notification_type, cb)
 }
 
-FBMessenger.prototype.sendReceiptMessage = function (id, payload, notification_type, cb) {
+var dataReceiptMessage = function (payload) {
   payload.template_type = 'receipt'
-  var messageData = {
+  return {
     'attachment': {
       'type': 'template',
       'payload': payload
     }
   }
-  this.sendMessage(id, messageData, notification_type, cb)
 }
 
-FBMessenger.prototype.sendQuickReplies = function (id, text, quick_replies, notification_type, cb){
-  var messageData = {
+
+var dataQuickReplies = function (text, quick_replies){
+  return {
     "text": text,
     "quick_replies": quick_replies
   }
-
-  this.sendMessage(id, messageData, notification_type, cb)
 }
 
-FBMessenger.prototype.sendQuickRepliesToList = function (id, elements, quick_replies, notification_type, cb){
-  var messageData = {
+var dataQuickRepliesToList = function (elements, quick_replies){
+  return {
     "attachment": {
       'type': 'template',
       'payload': {
@@ -91,12 +81,10 @@ FBMessenger.prototype.sendQuickRepliesToList = function (id, elements, quick_rep
     },
     "quick_replies": quick_replies
   }
-
-  this.sendMessage(id, messageData, notification_type, cb)
 }
 
-FBMessenger.prototype.sendListTemplate = function (id, elements,  notification_type, cb){
-  var messageData = {
+var dataListTemplate = function (elements){
+  return {
     "attachment": {
       'type': 'template',
       'payload': {
@@ -112,26 +100,16 @@ FBMessenger.prototype.sendListTemplate = function (id, elements,  notification_t
       }
     }
   }
-
-  this.sendMessageNew(id, messageData, notification_type, cb)
 }
 
-FBMessenger.prototype.sendMessageNew = function (id, data, notification_type, cb) {
-  notification_type = notification_type || this.notification_type
-  if(typeof notification_type === 'function') {
-    cb = notification_type
-    notification_type = this.notification_type
-  }
+var sendMessage = function(token, body, cb){
   var req = {
-    url: 'https://graph.facebook.com/me/messages',
-    qs: {access_token: this.token},
+    url: 'https://graph.facebook.com/v3.3/me/messages',
+    qs: token,
     method: 'POST',
-    json: {
-      recipient: {id: id},
-      message: data,
-      notification_type: notification_type
-    }
+    json: body
   }
+  
   request(req, function (err, res, body) {
     if (!cb) return
     if (err) return cb(err)
@@ -140,31 +118,87 @@ FBMessenger.prototype.sendMessageNew = function (id, data, notification_type, cb
   })
 }
 
-FBMessenger.prototype.sendMessage = function (id, data, notification_type, cb) {
-  notification_type = notification_type || this.notification_type
-  if(typeof notification_type === 'function') {
-    cb = notification_type
-    notification_type = this.notification_type
-  }
-  var req = {
-    url: 'https://graph.facebook.com/v2.6/me/messages',
-    qs: {access_token: this.token},
-    method: 'POST',
-    json: {
+FBMessenger.prototype.startTyping = function (id, session, cb) {
+  var body = {
       recipient: {id: id},
-      message: data,
-      notification_type: notification_type,
-      persona_id: HILA_PERSONA_ID
+      sender_action: "typing_on",
+      persona_id: session.persona["id"] 
     }
-  }
-  request(req, function (err, res, body) {
-    if (!cb) return
-    if (err) return cb(err)
-    if (body.error) return cb(body.error)
-    cb(null, body)
-  })
+
+  var token = {access_token: this.token};
+  sendMessage(token, body, cb);
 }
 
+FBMessenger.prototype.stopTyping = function (id, session, cb) {
+  var body = {
+      recipient: {id: id},
+      sender_action: "typing_off",
+      persona_id: session.persona["id"] 
+    }
+
+  var token = {access_token: this.token};
+  sendMessage(token, body, cb);
+}
+
+FBMessenger.prototype.routeIntents = function (id, entities, session, cb){
+  var intent  = entities["intent"]
+
+  if(intent){
+    session.context.push(entities)
+    switch(intent[0]["value"]) {
+      case 'saving':
+        // code block
+        break;
+      case 'promo':
+        // code block
+        break;
+      case 'list':
+        // code block
+        break;
+      case 'products':
+        // code block
+        break;
+      case 'goodbye':        
+        data = dataTextMessage('שמחתי לעזור');
+        break;
+      case 'greeting':                
+        data = dataTextMessage("הי, אני " + session.persona["name"] + ". אשמח לעזור לך היום.");
+        break;
+      case 'location':
+        // code block
+        break;
+      default:        
+        data = dataTextMessage('אני הסתבחתי, אפשר בבקשה להסביר :(');
+    }    
+  }else {
+    data = dataTextMessage('אני הסתבחתי, אפשר בבקשה להסביר :(');
+  }
+
+   var body = {
+      recipient: {id: id},
+      message: data,
+      messaging_type: "RESPONSE",
+      persona_id: session.persona["id"] 
+    }
+  var token = {access_token: this.token};
+  sendMessage(token, body, cb);
+}
+
+
+FBMessenger.prototype.getPersona = function () {
+  return personas[Math.floor(Math.random()*personas.length)];
+}
+
+
+function FBMessenger (token) {
+  this.token = token
+}
+
+
+module.exports = FBMessenger
+
+
+/*
 FBMessenger.prototype.setGreetingText = function (){
  var req = {
     url: 'https://graph.facebook.com/v2.6/me/thread_settings',
@@ -203,5 +237,4 @@ FBMessenger.prototype.getProfile = function (id, cb) {
   })
 }
 
-
-module.exports = FBMessenger
+*/

@@ -6,6 +6,7 @@ var parse = require('csv-parse');
 var request = require('request')
 var Store = require('../models/store');
 var Location = require('../models/location');
+var _ = require("underscore");
 
 let Wit = require('node-wit').Wit;
 let log = require('node-wit').log;
@@ -16,6 +17,29 @@ const FB_VERIFY_TOKEN = process.env.FB_VERIFY_TOKEN;
 const FB_PAGE_TOKEN = process.env.FB_PAGE_TOKEN;
 const FBMessenger = require('../middlewares/fb-messenger');
 const messenger = new FBMessenger(FB_PAGE_TOKEN);
+
+// This will contain all user sessions.
+// Each session has an entry:
+// sessionId -> {fbid: facebookUserId, context: sessionState}
+const sessions = {};
+
+const findOrCreateSession = (fbid) => {
+  let sessionId;
+  // Let's see if we already have a session for the user fbid
+  Object.keys(sessions).forEach(k => {
+    if (sessions[k].fbid === fbid) {
+      // Yep, got it!
+      sessionId = k;
+    }
+  });
+  if (!sessionId) {
+    // No session found for user fbid, let's create a new one
+    sessionId = new Date().toISOString();
+    sessions[sessionId] = {fbid: fbid, context: [], persona: messenger.getPersona() };
+  }
+  return sessionId;
+};
+
 
 // Setting up our bot
 const wit = new Wit({
@@ -40,11 +64,13 @@ router.post('/webhook', (req, res) => {
         if (event.message && !event.message.is_echo) {
           // Yay! We got a new message!
           // We retrieve the Facebook user ID of the sender
+          
           const sender = event.sender.id;
+          const sessionId = findOrCreateSession(sender);   
+          var session = sessions[sessionId]  
+          messenger.startTyping(sender, session, ()=>{})               
+          console.log("\t ---> session context : " + JSON.stringify(session.context));
 
-          // We could retrieve the user's current session, or create one if it doesn't exist
-          // This is useful if we want our bot to figure out the conversation history
-          // const sessionId = findOrCreateSession(sender);
           console.log(event.message);
           // We retrieve the message content
           const {text, attachments} = event.message;
@@ -56,13 +82,12 @@ router.post('/webhook', (req, res) => {
             messenger.sendTextMessage(sender, 'Sorry I can only process text messages for now.');            
           } else if (text) {
             console.log(text);
-            // We received a text message
-            // Let's run /message on the text to extract some entities
-            wit.message(text).then(({entities}) => {
-              // You can customize your response to these entities
+            wit.message(text).then(({entities}) => {              
               console.log(entities);
-              // For now, let's reply with another automatic message
-              messenger.sendTextMessage(sender, 'wit.ai: ' + JSON.stringify(entities));
+              messenger.routeIntents(sender, entities, session, function(session){
+                _.extend(sessions[sessionId], session);
+                messenger.stopTyping(sender, session, ()=>{}) 
+              });
             })
             .catch((err) => {
               console.error('Oops! Got an error from Wit: ', err.stack || err);
