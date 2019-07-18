@@ -2,10 +2,10 @@ var request = require('request')
 
 // Persona
 var TOMER_PERSONA = { "name": "תומר", "id" : "451985582288820"}
-var AVI_PERSONA= { "name": "תומר", "id" : "333321727605996"}
-var HILA_PERSONA = { "name": "תומר", "id" : "371213160254726"}
-var KEREN_PERSONA = { "name": "תומר", "id" : "500650940677315"}
-var YARON_PERSONA = { "name": "תומר", "id" : "2454054581496199"}
+var AVI_PERSONA= { "name": "אבי", "id" : "333321727605996"}
+var HILA_PERSONA = { "name": "הילה", "id" : "371213160254726"}
+var KEREN_PERSONA = { "name": "קרן", "id" : "500650940677315"}
+var YARON_PERSONA = { "name": "ירון", "id" : "2454054581496199"}
 
 var personas = [TOMER_PERSONA, AVI_PERSONA, HILA_PERSONA, KEREN_PERSONA, YARON_PERSONA]
 

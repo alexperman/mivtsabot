@@ -84,7 +84,7 @@ router.post('/webhook', (req, res) => {
             console.log(text);
             wit.message(text).then(({entities}) => {              
               console.log(entities);
-              messenger.routeIntents(sender, entities, session, function(session){
+              messenger.routeIntents(sender, entities, session, function(){
                 _.extend(sessions[sessionId], session);
                 messenger.stopTyping(sender, session, ()=>{}) 
               });
