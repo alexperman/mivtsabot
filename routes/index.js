@@ -80,11 +80,7 @@ router.post('/webhook', (req, res) => {
             console.log("\t TEXT from the Message >>> " + text);
             wit.message(text).then(({entities}) => {              
               console.log("\t WIT response is >>> " + JSON.stringify(entities));
-                messenger.routeIntents(sender, entities, session, (stop)=>{
-                  _.extend(sessions[sessionId], session);
-            //    messenger.stopTyping(sender, session, ()=>{}) 
-                if(stop == true){ delete sessions[sessionId];}
-              });
+              messenger.routeIntents(sender, entities, sessionId, sessions)
             })
             .catch((err) => {
               console.error('\tOops! Got an error from Wit >>> ', err.stack || err);

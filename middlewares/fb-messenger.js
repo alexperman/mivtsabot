@@ -165,12 +165,15 @@ FBMessenger.prototype.routeReply = function (id, quick_reply, session, cb){
   }
 }
 
-FBMessenger.prototype.routeIntents = function (id, entities, session, cb){
+FBMessenger.prototype.routeIntents = function (id, entities, sessionId, sessions){
   var intent  = entities["intent"]
   var stop = false;
+  var session = sessions[sessionId]
 
   if(intent){
     session.context.push(intent[0])
+    _.extend(sessions[sessionId], session);
+
     switch(intent[0]["value"]) {
       case 'saving':
         // code block
@@ -184,9 +187,9 @@ FBMessenger.prototype.routeIntents = function (id, entities, session, cb){
       case 'products':
         // code block
         break;
-      case 'goodbye': 
-        stop = true;       
+      case 'goodbye':              
         data = dataTextMessage('שמחתי לעזור');
+        delete sessions[sessionId];
         break;
       case 'greeting':                
         text = "הי, אני " + session.persona["name"] + ". אשמח לעזור לך היום. מה ברצונך לעשות? "
@@ -220,7 +223,7 @@ FBMessenger.prototype.routeIntents = function (id, entities, session, cb){
       persona_id: session.persona["id"] 
     }
   var token = {access_token: this.token};
-  sendMessage(token, body, cb(stop));
+  sendMessage(token, body, ()=>{});
 }
 
 FBMessenger.prototype.getPersona = function () {
