@@ -78,17 +78,17 @@ router.post('/webhook', (req, res) => {
           else if (text) {
             //messenger.startTyping(sender, session, ()=>{}) 
             console.log("\t TEXT from the Message >>> " + text);
-            //wit.message(text).then(({entities}) => {              
-            //  console.log("\t WIT response is >>> " + entities);
+            wit.message(text).then(({entities}) => {              
+              console.log("\t WIT response is >>> " + entities);
             //  messenger.routeIntents(sender, entities, session, (stop)=>{
             //    _.extend(sessions[sessionId], session);
             //    messenger.stopTyping(sender, session, ()=>{}) 
             //    if(stop == true){ delete sessions[sessionId];}
             //  });
-            //})
-            //.catch((err) => {
-            //  console.error('\tOops! Got an error from Wit >>> ', err.stack || err);
-            //})
+            })
+            .catch((err) => {
+              console.error('\tOops! Got an error from Wit >>> ', err.stack || err);
+            })
           }
         } else {
           if(event.postback)
