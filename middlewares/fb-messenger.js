@@ -140,7 +140,7 @@ FBMessenger.prototype.stopTyping = function (id, session, cb) {
   sendMessage(token, body, cb);
 }
 
-FBMessenger.prototype.routeReply = function (id, quick_reply, session, cb){
+FBMessenger.prototype.routeReply = function (id, quick_reply, sessionId, sessions){
   reply = quick_reply["payload"]
 
   if(reply){
@@ -158,10 +158,10 @@ FBMessenger.prototype.routeReply = function (id, quick_reply, session, cb){
       recipient: {id: id},
       message: data,
       messaging_type: "RESPONSE",
-      persona_id: session.persona["id"] 
+      persona_id: sessions[sessionId].persona["id"] 
     }
     var token = {access_token: this.token};
-    sendMessage(token, body, cb());
+    sendMessage(token, body);
   }
 }
 
@@ -221,7 +221,7 @@ FBMessenger.prototype.routeIntents = function (id, entities, sessionId, sessions
       persona_id: sessions[sessionId].persona["id"] 
     }
   var token = {access_token: this.token};
-  sendMessage(token, body, ()=>{});
+  sendMessage(token, body);
 }
 
 FBMessenger.prototype.getPersona = function () {

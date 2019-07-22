@@ -63,18 +63,21 @@ router.post('/webhook', (req, res) => {
       entry.messaging.forEach(event => {
         const sender = event.sender.id;
         const sessionId = findOrCreateSession(sender);   
-        var session = sessions[sessionId]  
+        var session = sessions[sessionId] 
 
-        console.log("\t ---> EVENT context  >>> " + JSON.stringify(event));              
-        console.log("\t ---> SESSION context  >>> " + JSON.stringify(session.context));        
-        
-        const {text, attachments, quick_reply} = event.message;
+        if (event.message && !event.message.is_echo) {  
+          console.log("\t ---> EVENT context  >>> " + JSON.stringify(event));              
+          console.log("\t ---> SESSION context  >>> " + JSON.stringify(session.context));    
+          const {text, attachments, quick_reply} = event.message;
 
-        if (event.message && !event.message.is_echo) {          
           if (attachments) {
             console.log("\t ATTACHMENTS >>> " + JSON.stringify(attachments));
             messenger.sendTextMessage(sender, 'Sorry I can only process text messages for now.');            
-          }           
+          }
+          else if(quick_reply){
+            console.log("\tReceive reply with  >>>" + JSON.stringify(quick_reply));
+            messenger.routeReply(sender, quick_reply, sessionId, sessions)
+          }                        
           else if (text) {
             //messenger.startTyping(sender, session, ()=>{}) 
             console.log("\t TEXT from the Message >>> " + text);
@@ -88,17 +91,10 @@ router.post('/webhook', (req, res) => {
           }
         } else {
           if(event.postback)
-          {
-              //if(quick_reply){
-              //    console.log("\tReceive reply with  >>>" + JSON.stringify(quick_reply));
-              //    messenger.routeReply(sender, quick_reply, session, ()=>{
-              //      _.extend(sessions[sessionId], session);                    
-              //    })
-              //} else {                
-                console.log('\tReceived POSTBACK event >>>', JSON.stringify(event)); 
-              //}
+          {         
+            console.log('\tReceived POSTBACK event >>>', JSON.stringify(event)); 
           } else {            
-            console.log('\tSOME STRANGE EVENT was received >>>', JSON.stringify(event));
+            console.log('\tOther EVENT was received >>>', JSON.stringify(event));
           }
         }
       });
