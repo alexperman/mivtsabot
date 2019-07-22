@@ -76,31 +76,31 @@ router.post('/webhook', (req, res) => {
             messenger.sendTextMessage(sender, 'Sorry I can only process text messages for now.');            
           }           
           else if (text) {
-            messenger.startTyping(sender, session, ()=>{}) 
+            //messenger.startTyping(sender, session, ()=>{}) 
             console.log("\t TEXT from the Message >>> " + text);
-            wit.message(text).then(({entities}) => {              
-              console.log("\t WIT response is >>> " + entities);
-              messenger.routeIntents(sender, entities, session, (stop)=>{
-                _.extend(sessions[sessionId], session);
-                messenger.stopTyping(sender, session, ()=>{}) 
-                if(stop == true){ delete sessions[sessionId];}
-              });
-            })
-            .catch((err) => {
-              console.error('\tOops! Got an error from Wit >>> ', err.stack || err);
-            })
+            //wit.message(text).then(({entities}) => {              
+            //  console.log("\t WIT response is >>> " + entities);
+            //  messenger.routeIntents(sender, entities, session, (stop)=>{
+            //    _.extend(sessions[sessionId], session);
+            //    messenger.stopTyping(sender, session, ()=>{}) 
+            //    if(stop == true){ delete sessions[sessionId];}
+            //  });
+            //})
+            //.catch((err) => {
+            //  console.error('\tOops! Got an error from Wit >>> ', err.stack || err);
+            //})
           }
         } else {
           if(event.postback)
           {
-              if(quick_reply){
-                  console.log("\tReceive reply with  >>>" + JSON.stringify(quick_reply));
-                  messenger.routeReply(sender, quick_reply, session, ()=>{
-                    _.extend(sessions[sessionId], session);                    
-                  })
-              } else {                
+              //if(quick_reply){
+              //    console.log("\tReceive reply with  >>>" + JSON.stringify(quick_reply));
+              //    messenger.routeReply(sender, quick_reply, session, ()=>{
+              //      _.extend(sessions[sessionId], session);                    
+              //    })
+              //} else {                
                 console.log('\tReceived POSTBACK event >>>', JSON.stringify(event)); 
-              }
+              //}
           } else {            
             console.log('\tSOME STRANGE EVENT was received >>>', JSON.stringify(event));
           }
