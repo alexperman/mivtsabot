@@ -61,32 +61,22 @@ router.post('/webhook', (req, res) => {
   if (data.object === 'page') {
     data.entry.forEach(entry => {
       entry.messaging.forEach(event => {
+        const sender = event.sender.id;
+        const sessionId = findOrCreateSession(sender);   
+        var session = sessions[sessionId]  
+        messenger.startTyping(sender, session, ()=>{})               
+        console.log("\t ---> SESSION context  >>> " + JSON.stringify(session.context));
+
+        console.log(event.message);
+        // We retrieve the message content
+        const {text, attachments, quick_reply} = event.message;
+
         if (event.message && !event.message.is_echo) {
-          // Yay! We got a new message!
-          // We retrieve the Facebook user ID of the sender
-          
-          const sender = event.sender.id;
-          const sessionId = findOrCreateSession(sender);   
-          var session = sessions[sessionId]  
-          messenger.startTyping(sender, session, ()=>{})               
-          console.log("\t ---> session context : " + JSON.stringify(session.context));
-
-          console.log(event.message);
-          // We retrieve the message content
-          const {text, attachments, quick_reply} = event.message;
-
           if (attachments) {
             console.log(attachments);
-            // We received an attachment
-            // Let's reply with an automatic message            
+            messenger.stopTyping(sender, session, ()=>{}) 
             messenger.sendTextMessage(sender, 'Sorry I can only process text messages for now.');            
-          } 
-          else if(quick_reply){
-            console.log("Receive reply with :" + JSON.stringify(quick_reply));
-            messenger.routeReply(sender, quick_reply, session, ()=>{
-              _.extend(sessions[sessionId], session);
-            })
-          }
+          }           
           else if (text) {
             console.log(text);
             wit.message(text).then(({entities}) => {              
@@ -98,11 +88,26 @@ router.post('/webhook', (req, res) => {
               });
             })
             .catch((err) => {
-              console.error('Oops! Got an error from Wit: ', err.stack || err);
+              console.error('Oops! Got an error from Wit >>> ', err.stack || err);
             })
           }
         } else {
-          console.log('received event', JSON.stringify(event));
+          if(event.postback)
+          {
+              if(quick_reply){
+                  console.log("Receive reply with  >>>" + JSON.stringify(quick_reply));
+                  messenger.routeReply(sender, quick_reply, session, ()=>{
+                    _.extend(sessions[sessionId], session);
+                    messenger.stopTyping(sender, session, ()=>{}) 
+                  })
+              } else {
+                messenger.stopTyping(sender, session, ()=>{});
+                console.log('\tReceived POSTBACK event >>>', JSON.stringify(event)); 
+              }
+          } else {
+            messenger.stopTyping(sender, session, ()=>{}) 
+            console.log('\tSOME STRANGE EVENT was received >>>', JSON.stringify(event));
+          }
         }
       });
     });

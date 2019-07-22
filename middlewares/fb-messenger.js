@@ -152,7 +152,7 @@ FBMessenger.prototype.routeReply = function (id, quick_reply, session, cb){
         data = dataTextMessage('באיז עיר לבדוק את המבצעים?');
         break;
       default:
-        
+
     }
     var body = {
       recipient: {id: id},
@@ -194,13 +194,11 @@ FBMessenger.prototype.routeIntents = function (id, entities, session, cb){
           {
             "content_type":"text",
             "title":"אני בסופר ",
-            "payload":"instore",
-            "image_url":"https://mivtsabot.herokuapp.com/img/instore.png"
+            "payload":"instore"
           },{
             "content_type":"text",
             "title":"לעיין במבצעים ",
-            "payload":"outstore",
-            "image_url":"https://mivtsabot.herokuapp.com/img/outstore.png"
+            "payload":"outstore"
           }
         ]
         data = dataQuickReplies(text, quick_replies);
