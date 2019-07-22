@@ -167,12 +167,10 @@ FBMessenger.prototype.routeReply = function (id, quick_reply, session, cb){
 
 FBMessenger.prototype.routeIntents = function (id, entities, sessionId, sessions){
   var intent  = entities["intent"]
-  var stop = false;
-  var session = sessions[sessionId]
+  var stop = false; 
 
   if(intent){
-    session.context.push(intent[0])
-    _.extend(sessions[sessionId], session);
+    sessions[sessionId].context.push(intent[0])
 
     switch(intent[0]["value"]) {
       case 'saving':
@@ -192,7 +190,7 @@ FBMessenger.prototype.routeIntents = function (id, entities, sessionId, sessions
         delete sessions[sessionId];
         break;
       case 'greeting':                
-        text = "הי, אני " + session.persona["name"] + ". אשמח לעזור לך היום. מה ברצונך לעשות? "
+        text = "הי, אני " + sessions[sessionId].persona["name"] + ". אשמח לעזור לך היום. מה ברצונך לעשות? "
         quick_replies = [
           {
             "content_type":"text",
