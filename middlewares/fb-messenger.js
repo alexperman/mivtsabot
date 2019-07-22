@@ -164,7 +164,21 @@ FBMessenger.prototype.routeIntents = function (id, entities, session, cb){
         data = dataTextMessage('שמחתי לעזור');
         break;
       case 'greeting':                
-        data = dataTextMessage("הי, אני " + session.persona["name"] + ". אשמח לעזור לך היום.");
+        text = "הי, אני " + session.persona["name"] + ". אשמח לעזור לך היום."
+        quick_replies = [
+          {
+            "content_type":"text",
+            "title":"אני בסופר",
+            "payload":"instore",
+            "image_url":"https://mivtsabot.herokuapp.com/img/instore.png"
+          },{
+            "content_type":"text",
+            "title":"לעיין במבצעים",
+            "payload":"outstore",
+            "image_url":"https://mivtsabot.herokuapp.com/img/outstore.png"
+          }
+        ]
+        data = dataQuickReplies(text, quick_replies);
         break;
       case 'location':
         // code block

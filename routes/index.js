@@ -146,13 +146,13 @@ router.get('/loadcities', function(req, res, next) {
 
 
 router.get('/onboarding', function(req, res, next){
-  fs.createReadStream('../onboarding/address_7152019.csv')
+  fs.createReadStream('./onboarding/address_7152019.csv')
     .pipe(parse({delimiter: ','}))
     .on('data', function(csvrow) {
       data_text = csvrow[0]        
       //do something with csvrow
       var req = {
-        url: ' https://api.wit.ai/entities/address/values',
+        url: ' https://api.wit.ai/entities/street/values',
         headers: { Authorization: 'Bearer 5X45AZF44P4Z7XSZFHUELXGTUYFEDLRI',
                    'Content-Type': 'application/json'
                   },
@@ -171,7 +171,42 @@ router.get('/onboarding', function(req, res, next){
 
 })
 
+router.get('/training', function(req, res, next){
+  fs.createReadStream('./onboarding/address_7152019.csv')
+    .pipe(parse({delimiter: ','}))
+    .on('data', function(csvrow) {
+      data_text = csvrow[0]        
+      //do something with csvrow
+      var req = {
+        url: ' https://api.wit.ai/samples',
+        headers: { Authorization: 'Bearer 5X45AZF44P4Z7XSZFHUELXGTUYFEDLRI',
+                   'Content-Type': 'application/json'
+                  },
+        method: 'POST',
+        json: {
+          "text": "ברח " + data_text,
+          "entities": [
+            {
+              "entity": "intent",
+              "value": "location"
+            },
+            {
+              "entity": "street",
+              "value": data_text
+            }
+          ]
+          
+        }
+      }
+      request(req, function (err, res, body) {})       
+    })
+    .on('end',function() {
+      //do something wiht csvData
+      //console.log(csvData);
+      res.sendStatus(200);
+    });
 
+}) 
 module.exports = router;
 
 
