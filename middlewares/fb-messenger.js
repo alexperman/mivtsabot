@@ -218,7 +218,7 @@ FBMessenger.prototype.routeIntents = function (id, entities, sessionId, sessions
       recipient: {id: id},
       message: data,
       messaging_type: "RESPONSE",
-      persona_id: session.persona["id"] 
+      persona_id: sessions[sessionId].persona["id"] 
     }
   var token = {access_token: this.token};
   sendMessage(token, body, ()=>{});
