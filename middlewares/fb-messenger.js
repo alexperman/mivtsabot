@@ -170,7 +170,7 @@ FBMessenger.prototype.routeIntents = function (id, entities, session, cb){
   var stop = false;
 
   if(intent){
-    session.context.push(entities)
+    session.context.push(intent[0])
     switch(intent[0]["value"]) {
       case 'saving':
         // code block

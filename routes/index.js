@@ -72,19 +72,19 @@ router.post('/webhook', (req, res) => {
 
         if (event.message && !event.message.is_echo) {          
           if (attachments) {
-            console.log("\t ATTACHMENTS >>> " + attachments);
+            console.log("\t ATTACHMENTS >>> " + JSON.stringify(attachments);
             messenger.sendTextMessage(sender, 'Sorry I can only process text messages for now.');            
           }           
           else if (text) {
             //messenger.startTyping(sender, session, ()=>{}) 
             console.log("\t TEXT from the Message >>> " + text);
             wit.message(text).then(({entities}) => {              
-              console.log("\t WIT response is >>> " + entities);
-            //  messenger.routeIntents(sender, entities, session, (stop)=>{
-            //    _.extend(sessions[sessionId], session);
+              console.log("\t WIT response is >>> " + JSON.stringify(entities));
+                messenger.routeIntents(sender, entities, session, (stop)=>{
+                  _.extend(sessions[sessionId], session);
             //    messenger.stopTyping(sender, session, ()=>{}) 
-            //    if(stop == true){ delete sessions[sessionId];}
-            //  });
+                if(stop == true){ delete sessions[sessionId];}
+              });
             })
             .catch((err) => {
               console.error('\tOops! Got an error from Wit >>> ', err.stack || err);
