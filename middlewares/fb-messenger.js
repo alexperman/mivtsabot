@@ -140,6 +140,31 @@ FBMessenger.prototype.stopTyping = function (id, session, cb) {
   sendMessage(token, body, cb);
 }
 
+FBMessenger.prototype.routeReply = function (id, quick_reply, session, cb){
+  reply = quick_reply["payload"]
+
+  if(reply){
+    switch(reply){
+      case 'indore':
+        data = dataTextMessage('באיז עיר נמצא הסופר?');
+        break;
+      case 'outdore':
+        data = dataTextMessage('באיז עיר לבדוק את המבצעים?');
+        break;
+      default:
+        
+    }
+    var body = {
+      recipient: {id: id},
+      message: data,
+      messaging_type: "RESPONSE",
+      persona_id: session.persona["id"] 
+    }
+    var token = {access_token: this.token};
+    sendMessage(token, body, cb());
+  }
+}
+
 FBMessenger.prototype.routeIntents = function (id, entities, session, cb){
   var intent  = entities["intent"]
   var stop = false;
@@ -164,16 +189,16 @@ FBMessenger.prototype.routeIntents = function (id, entities, session, cb){
         data = dataTextMessage('שמחתי לעזור');
         break;
       case 'greeting':                
-        text = "הי, אני " + session.persona["name"] + ". אשמח לעזור לך היום."
+        text = "הי, אני " + session.persona["name"] + ". אשמח לעזור לך היום. מה ברצונך לעשות? "
         quick_replies = [
           {
             "content_type":"text",
-            "title":"אני בסופר",
+            "title":"אני בסופר ",
             "payload":"instore",
             "image_url":"https://mivtsabot.herokuapp.com/img/instore.png"
           },{
             "content_type":"text",
-            "title":"לעיין במבצעים",
+            "title":"לעיין במבצעים ",
             "payload":"outstore",
             "image_url":"https://mivtsabot.herokuapp.com/img/outstore.png"
           }

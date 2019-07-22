@@ -73,14 +73,21 @@ router.post('/webhook', (req, res) => {
 
           console.log(event.message);
           // We retrieve the message content
-          const {text, attachments} = event.message;
+          const {text, attachments, quick_reply} = event.message;
 
           if (attachments) {
             console.log(attachments);
             // We received an attachment
             // Let's reply with an automatic message            
             messenger.sendTextMessage(sender, 'Sorry I can only process text messages for now.');            
-          } else if (text) {
+          } 
+          else if(quick_reply){
+            console.log("Receive reply with :" + JSON.stringify(quick_reply));
+            messenger.routeReply(sender, quick_reply, session, ()=>{
+              _.extend(sessions[sessionId], session);
+            })
+          }
+          else if (text) {
             console.log(text);
             wit.message(text).then(({entities}) => {              
               console.log(entities);
