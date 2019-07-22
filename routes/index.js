@@ -72,7 +72,7 @@ router.post('/webhook', (req, res) => {
 
         if (event.message && !event.message.is_echo) {          
           if (attachments) {
-            console.log("\t ATTACHMENTS >>> " + JSON.stringify(attachments);
+            console.log("\t ATTACHMENTS >>> " + JSON.stringify(attachments));
             messenger.sendTextMessage(sender, 'Sorry I can only process text messages for now.');            
           }           
           else if (text) {
