@@ -35,7 +35,7 @@ const findOrCreateSession = (fbid) => {
   if (!sessionId) {
     // No session found for user fbid, let's create a new one
     sessionId = new Date().toISOString();
-    sessions[sessionId] = {fbid: fbid, context: [], persona: messenger.getPersona() };
+    sessions[sessionId] = {fbid: fbid, context: {}, persona: messenger.getPersona() };
   }
   return sessionId;
 };

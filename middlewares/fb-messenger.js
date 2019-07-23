@@ -124,16 +124,16 @@ var dataLocation =  function(entities, sessionId, sessions){
   var street  = entities["street"]
   
   var data
-  if(sessions[sessionId].context.location.city == ''){
+  if(sessions[sessionId].context["location"]["city"] == ''){
     if(city){
-      sessions[sessionId].context.location.city = city[0]["value"];
+      sessions[sessionId].context["location"]["city"] = city[0]["value"];
       data = dataTextMessage('באיזה רחוב נמצא הסופר?'); 
     } else {
       data = dataTextMessage("בבקשה חזרו עוד פעעם עם השם של העיר ?")
     }
-  } else if(context.location.street == ''){
+  } else if(sessions[sessionId].context["location"]["street"] == ''){
     if(street){
-      sessions[sessionId].context.location.street = street[0]["value"];
+      sessions[sessionId].context["location"]["street"] = street[0]["value"];
       buttons = [{
         "type": "web_url",
         "url": "https://mivtsabot.herokuapp.com/webview/stores/54/32.134603/34.21132",
@@ -200,11 +200,11 @@ FBMessenger.prototype.routeReply = function (id, quick_reply, sessionId, session
   if(reply){
     switch(reply){
       case 'instore':
-        sessions[sessionId].context.push({location: {city: '', street: '' }})
+        sessions[sessionId].context["location"] = {city: '', street: '' }
         data = dataTextMessage('באיזה עיר נמצא הסופר?');
         break;
       case 'outstore':
-        sessions[sessionId].context.push({location: {city: '', street: '' }})
+        sessions[sessionId].context["location"] = {city: '', street: '' }
         data = dataTextMessage('באיזה עיר לבדוק את המבצעים?');
         break;
       default:
@@ -226,7 +226,7 @@ FBMessenger.prototype.routeIntents = function (id, entities, sessionId, sessions
   var stop = false; 
 
   if(intent){
-    sessions[sessionId].context.push(intent[0])
+    sessions[sessionId].context["intent"] = intent[0]
 
     switch(intent[0]["value"]) {
       case 'saving':
@@ -249,7 +249,7 @@ FBMessenger.prototype.routeIntents = function (id, entities, sessionId, sessions
         data = dataGreeting(sessions[sessionId])
         break;
       case 'location':
-        data = dataLocation(entities, sessions[sessionId].context)
+        data = dataLocation(entities, sessionId, sessions)
         break;
       default:        
         data = dataTextMessage('אני הסתבחתי, אפשר בבקשה להסביר :(');
