@@ -221,7 +221,7 @@ FBMessenger.prototype.routeIntents = function (id, entities, sessionId, sessions
       persona_id: sessions[sessionId].persona["id"] 
     }
   var token = {access_token: this.token};
-  sendMessage(token, body, (stop){
+  sendMessage(token, body, (stop)=>{
     if (stop) { delete sessions[sessionId]; }
   });
 }
