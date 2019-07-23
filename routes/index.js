@@ -60,7 +60,6 @@ router.post('/webhook', (req, res) => {
 
   if (data.object === 'page') {
     data.entry.forEach(entry => {
-      console.log("\t ENTRY is >>> " + JSON.stringify(entry));
       entry.messaging.forEach(event => {
         const sender = event.sender.id;
         const sessionId = findOrCreateSession(sender);   
