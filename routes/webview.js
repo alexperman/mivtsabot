@@ -10,7 +10,7 @@ var Store = require('../models/store');
 router.get('/stores/:listid/:lat/:lon', function(req, res, next) {
 	var center = {latitude: parseFloat(req.params["lat"]), longitude: parseFloat(req.params["lon"])}
 	ListStores.getStores(req.params["listid"], (listsstores)=>{
-		var models =listsstores.models;
+		var models = listsstores.models;
 		console.log("-----> Received list ["+models.length+"] >>>"+ JSON.stringify(models))
 		if(models.length > 0){
 			var store_ids = []
