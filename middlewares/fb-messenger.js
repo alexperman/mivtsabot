@@ -145,10 +145,10 @@ FBMessenger.prototype.routeReply = function (id, quick_reply, sessionId, session
 
   if(reply){
     switch(reply){
-      case 'indore':
+      case 'instore':
         data = dataTextMessage('באיז עיר נמצא הסופר?');
         break;
-      case 'outdore':
+      case 'outstore':
         data = dataTextMessage('באיז עיר לבדוק את המבצעים?');
         break;
       default:
