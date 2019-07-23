@@ -118,6 +118,60 @@ var sendMessage = function(token, body, cb){
   })
 }
 
+
+var dataLocation =  function(entities, sessionId, sessions){
+  var city  = entities["city"]
+  var street  = entities["street"]
+  
+  var data
+  if(sessions[sessionId].context.location.city == ''){
+    if(city){
+      sessions[sessionId].context.location.city = city[0]["value"];
+      data = dataTextMessage('באיזה רחוב נמצא הסופר?'); 
+    } else {
+      data = dataTextMessage("בבקשה חזרו עוד פעעם עם השם של העיר ?")
+    }
+  } else if(context.location.street == ''){
+    if(street){
+      sessions[sessionId].context.location.street = street[0]["value"];
+      buttons = [{
+        "type": "web_url",
+        "url": "https://mivtsabot.herokuapp.com/webview/stores/54/32.134603/34.21132",
+        "title": "סופרים שלי",
+      }] 
+      data = dataButtonsMessage("רשימת הסופרים מהאזור בו המבצעים נבדקים", buttons) 
+    }else{
+      data = dataTextMessage("בבקשה חזרו עוד פעעם עם השם של הרחוב ?") 
+    }
+  } else {
+    buttons = [{
+      "type": "web_url",
+      "url": "https://mivtsabot.herokuapp.com/webview/stores/54/32.134603/34.21132",
+      "title": "סופרים שלי",
+    }] 
+    data = dataButtonsMessage("רשימת הסופרים מהאזור בו המבצעים נבדקים", buttons) 
+  }
+
+  return data
+}
+
+var dataGreeting = function (session) {
+  text = "הי, אני " + session.persona["name"] + ". אשמח לעזור לך היום. מה ברצונך לעשות? "
+  quick_replies = [
+    {
+      "content_type":"text",
+      "title":"אני בסופר ",
+      "payload":"instore"
+    },{
+      "content_type":"text",
+      "title":"לעיין במבצעים ",
+      "payload":"outstore"
+    }
+  ]
+  return dataQuickReplies(text, quick_replies);
+}
+/////////////////////////////////////////////////////////////////////////////////////
+
 FBMessenger.prototype.startTyping = function (id, session, cb) {
   var body = {
       recipient: {id: id},
@@ -146,10 +200,12 @@ FBMessenger.prototype.routeReply = function (id, quick_reply, sessionId, session
   if(reply){
     switch(reply){
       case 'instore':
-        data = dataTextMessage('באיז עיר נמצא הסופר?');
+        sessions[sessionId].context.push({location: {city: '', street: '' }})
+        data = dataTextMessage('באיזה עיר נמצא הסופר?');
         break;
       case 'outstore':
-        data = dataTextMessage('באיז עיר לבדוק את המבצעים?');
+        sessions[sessionId].context.push({location: {city: '', street: '' }})
+        data = dataTextMessage('באיזה עיר לבדוק את המבצעים?');
         break;
       default:
 
@@ -190,22 +246,10 @@ FBMessenger.prototype.routeIntents = function (id, entities, sessionId, sessions
         data = dataTextMessage('שמחתי לעזור');        
         break;
       case 'greeting':                
-        text = "הי, אני " + sessions[sessionId].persona["name"] + ". אשמח לעזור לך היום. מה ברצונך לעשות? "
-        quick_replies = [
-          {
-            "content_type":"text",
-            "title":"אני בסופר ",
-            "payload":"instore"
-          },{
-            "content_type":"text",
-            "title":"לעיין במבצעים ",
-            "payload":"outstore"
-          }
-        ]
-        data = dataQuickReplies(text, quick_replies);
+        data = dataGreeting(sessions[sessionId])
         break;
       case 'location':
-        // code block
+        data = dataLocation(entities, sessions[sessionId].context)
         break;
       default:        
         data = dataTextMessage('אני הסתבחתי, אפשר בבקשה להסביר :(');
