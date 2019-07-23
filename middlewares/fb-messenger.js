@@ -185,9 +185,9 @@ FBMessenger.prototype.routeIntents = function (id, entities, sessionId, sessions
       case 'products':
         // code block
         break;
-      case 'goodbye':              
-        data = dataTextMessage('שמחתי לעזור');
-        delete sessions[sessionId];
+      case 'goodbye':
+        stop = true;              
+        data = dataTextMessage('שמחתי לעזור');        
         break;
       case 'greeting':                
         text = "הי, אני " + sessions[sessionId].persona["name"] + ". אשמח לעזור לך היום. מה ברצונך לעשות? "
@@ -221,7 +221,9 @@ FBMessenger.prototype.routeIntents = function (id, entities, sessionId, sessions
       persona_id: sessions[sessionId].persona["id"] 
     }
   var token = {access_token: this.token};
-  sendMessage(token, body);
+  sendMessage(token, body, (stop){
+    if (stop) { delete sessions[sessionId]; }
+  });
 }
 
 FBMessenger.prototype.getPersona = function () {
