@@ -138,6 +138,7 @@ var dataLocation =  function(entities, sessionId, sessions){
         "type": "web_url",
         "url": "https://mivtsabot.herokuapp.com/webview/stores/54/32.134603/34.21132",
         "title": "סופרים שלי",
+        "webview_height_ratio": "tall"
       }] 
       data = dataButtonsMessage("רשימת הסופרים מהאזור בו המבצעים נבדקים", buttons) 
     }else{
@@ -148,6 +149,7 @@ var dataLocation =  function(entities, sessionId, sessions){
       "type": "web_url",
       "url": "https://mivtsabot.herokuapp.com/webview/stores/54/32.134603/34.21132",
       "title": "סופרים שלי",
+      "webview_height_ratio": "tall"
     }] 
     data = dataButtonsMessage("רשימת הסופרים מהאזור בו המבצעים נבדקים", buttons) 
   }
