@@ -3,50 +3,54 @@ extends layout
 block content   
   section#features.features
     .container
-      .section-heading.text-center
+      .text-center
         h2.titlize 
-          | איך לשלם פחות בקופות הסופרים? 
+          | איך לשלם פחות על הקניות בסופר? 
         h4.titlize 
-          | שרות אוטומטי נבנה על ידי פרופסור מאמריקה ומהנדס ישראלי.
+          | שרות עם מענה אוטומטי (AI) נבנה על ידי פרופסור מאמריקה ומהנדס ישראלי.
         a.btn.btn-primary.mt-4(href='http://m.me/2033518136685348')          
           span.align-middle(style="font-size: larger;font-family: arial;letter-spacing: 0.5px;") 
-            | דברו בפרטי עם עוזר האישי שלנו
+            | דברו איתנו
           i.fab.fa-facebook-messenger.fa-2x.align-middle.mr-2
         hr
-      .row       
-        .col-lg-4.my-auto
-          .device-container
-            .device-mockup.iphone6_plus.portrait.white
-              .device
-                .screen
-                  // Demo image for screen mockup, you can put an image here, some HTML, an animation, video, or anything else!
-                  img.img-fluid(src='img/mivtsaim1.png', alt='')
-                .button
-                  // You can hook the "home button" to some JavaScript events or just remove it
-        .col-lg-8.my-auto
-          .container-fluid
-            .row
-              .col-lg-6
-                .feature-item
-                  i.fas.fa-list-ol.text-primary
-                  h3.mt-3 בוחרים מיקום
-                  p.text-muted רשימות הקניה חכמות,  מותאמת לאיזור הגאוגרפי בו תרצו לערוך את הקניה.
-              .col-lg-6
-                .feature-item
-                  i.fas.fa-percent.text-primary
-                  h3.mt-3 חיסכון בדרך
-                  p.text-muted תנצלו את המבצעים וקופונים אישיים שחוסכים עשרות שקלים בקניה              
-            .row           
-              .col-lg-6
-                .feature-item
-                  i.fas.fa-shopping-basket.text-primary
-                  h3.mt-3 יאללה קניות
-                  p.text-muted החלטות מבוססות על המחירים עדכונים בזמן אמת. תעקבו לאחר רשימה בזמן אמת ותחסכו מאות שקלים בחודש
-              .col-lg-6
-                .feature-item
-                  i.fas.fa-user-friends.text-primary
-                  h3.mt-3 חבר חכם
-                  p.text-muted שרות מבוסס על רובוט, שבין שפת בן אדם בצורה מדהימה. רובוט שיודע לזהות כוונות ולהגיב בהתאים
+      .row.justify-content-md-center       
+        .columns
+          .column.col-12
+            .device.device-iphone-x
+              .device-frame
+                .screen                
+                  img.img-fluid(src='img/mivtsaim1.png', alt='')            
+              .device-stripe
+              .device-header
+              .device-sensors
+              .device-btns
+              .device-power
+              .device-home
+
+         //.col-lg-8.my-auto
+          //.container-fluid
+            //.row
+              //.col-lg-6
+                //.feature-item
+                  //i.fas.fa-list-ol.text-primary
+                  //h3.mt-3 בוחרים מיקום
+                  //p.text-muted רשימות הקניה חכמות,  מותאמת לאיזור הגאוגרפי בו תרצו לערוך את הקניה.
+              //.col-lg-6
+                //.feature-item
+                  //i.fas.fa-percent.text-primary
+                  //h3.mt-3 חיסכון בדרך
+                  //p.text-muted תנצלו את המבצעים וקופונים אישיים שחוסכים עשרות שקלים בקניה              
+            //.row           
+              //.col-lg-6
+                //.feature-item
+                  //i.fas.fa-shopping-basket.text-primary
+                  //h3.mt-3 יאללה קניות
+                  //p.text-muted החלטות מבוססות על המחירים עדכונים בזמן אמת. תעקבו לאחר רשימה בזמן אמת ותחסכו מאות שקלים בחודש
+              //.col-lg-6
+                //.feature-item
+                  //i.fas.fa-user-friends.text-primary
+                  //h3.mt-3 חבר חכם
+                  //p.text-muted שרות מבוסס על רובוט, שבין שפת בן אדם בצורה מדהימה. רובוט שיודע לזהות כוונות ולהגיב בהתאים
         
   footer
     .container

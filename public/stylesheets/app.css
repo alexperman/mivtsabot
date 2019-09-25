@@ -23,7 +23,14 @@ body {
 }
 body {
   font-family: 'Muli', 'Helvetica', 'Arial', 'sans-serif';
+  background: url('img/groceries.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
 }
+
+
 a {
   -webkit-transition: all 0.35s;
   -moz-transition: all 0.35s;
@@ -416,6 +423,7 @@ footer ul li a.active {
   text-transform: uppercase;
   letter-spacing: 2px;
   border-radius: 300px;
+  height: 2.4rem;
 }
 .btn-xl {
   padding: 15px 45px;

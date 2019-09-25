@@ -232,16 +232,16 @@ FBMessenger.prototype.routeIntents = function (id, entities, sessionId, sessions
 
     switch(intent[0]["value"]) {
       case 'saving':
-        // code block
+        data = dataShowSavings(entities, sessionId, sessions)
         break;
       case 'promo':
-        // code block
+        data = dataShowPromos(entities, sessionId, sessions)
         break;
       case 'list':
-        // code block
+        data = dataCurrentList(entities, sessionId, sessions)
         break;
       case 'products':
-        // code block
+        data = dataShowProducts(entities, sessionId, sessions)
         break;
       case 'goodbye':
         stop = true;              
