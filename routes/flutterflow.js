@@ -18,8 +18,8 @@ var Store = require('../models/store');
 var Location = require('../models/location');
 
 async function convertAddrees2Point(req) {
-    console.log(req.params["city"], req.params["address"])
-    var point = "Israel," + req.params["city"] + ","+ req.params["address"]
+    console.log( req.params["full_address"])
+    var point = "Israel," + ","+ req.params["full_address"]
     
     try{
       const results =  await geocoder.geocode( point) ;
@@ -72,7 +72,7 @@ function to_flutterflow(point, locations, stores){
 }
 
 //  http://localhost:3001/flutterflow/supermarkets/פתח תקווה/משה סנה 32
-router.get("/supermarkets/:city/:address", async function (req, res, next) {
+router.get("/supermarkets/:full_address", async function (req, res, next) {
     try{
       var point = await convertAddrees2Point(req);
       console.log("Point: " + JSON.stringify(point));
