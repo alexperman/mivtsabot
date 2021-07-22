@@ -1,0 +1,5 @@
+tr
+    th(scope='row') 1
+    td= productset.name.split('/').pop()
+    td= productset.displayName
+    td= (Number(productset.indexTime.seconds) > 0 || Number(productset.indexTime.nanos) > 0 ) ? "waiting" : "complete"

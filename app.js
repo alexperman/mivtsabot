@@ -6,10 +6,17 @@ var session = require('express-session');
 var logger = require('morgan');
 
 var index = require('./routes/index');
-var payload = require('./routes/payload');
-var webview = require('./routes/webview');
+//var payload = require('./routes/payload');
+//var webview = require('./routes/webview');
+//var catalog = require('./routes/catalog');
+
+var flutterflow = require('./routes/flutterflow');
 
 var expressValidator = require('express-validator');
+
+const FirebaseAdmin = require('./middlewares/firebase-admin');
+const firebase_admin = new FirebaseAdmin();
+firebase_admin.initListeners();
 
 var app = express();
 global.appRoot = path.resolve(__dirname);
@@ -33,9 +40,10 @@ app.use(expressValidator());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-app.use('/payload', payload);
-app.use('/webview', webview);
-
+//app.use('/payload', payload);
+//app.use('/webview', webview);
+//app.use('/catalog', catalog);
+app.use('/flutterflow', flutterflow);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   

@@ -1,0 +1,14 @@
+extends layout
+
+block content
+    table.table
+        thead
+            tr
+                th(scope='col') #
+                th(scope='col') First
+                th(scope='col') Last
+                th(scope='col') Handle
+        tbody
+            - each productset in productsets
+                include productset
+            

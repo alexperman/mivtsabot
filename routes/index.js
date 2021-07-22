@@ -3,9 +3,7 @@ var router = express.Router();
 
 var fs = require('fs');
 var parse = require('csv-parse');
-var request = require('request')
-var Store = require('../models/store');
-var Location = require('../models/location');
+var request = require('request');
 var _ = require("underscore");
 
 let Wit = require('node-wit').Wit;
@@ -76,6 +74,7 @@ router.post('/webhook', (req, res) => {
           }
           else if(quick_reply){
             console.log("\tReceive reply with  >>>" + JSON.stringify(quick_reply));
+            // Should be under the context as a last questing + quick reply
             messenger.routeReply(sender, quick_reply, sessionId, sessions)
           }                        
           else if (text) {
