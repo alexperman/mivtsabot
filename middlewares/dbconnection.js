@@ -5,10 +5,13 @@ var method = dbconnection.prototype
 function dbconnection(){  
 	this.knex = require('knex')({
       client: 'pg',
-      connection: process.env.DATABASE_URL,
+      connection: {
+        connectionString: process.env.DATABASE_URL,
+        ssl: { rejectUnauthorized: false },
+      }
       // for local testing
       //connection: {host: "localhost", user: "postgres", password: "postgres", database: "discountshub_development" },
-      ssl: true 
+      //ssl: true 
       });
 
   this.bookshelf = require('bookshelf')(this.knex);
