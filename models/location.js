@@ -3,10 +3,14 @@ var _ = require("underscore");
 
 var dbconnection = require("../middlewares/dbconnection");
 var db = new dbconnection();
+var Store = require('../models/store');
 
 let Location = db.bookshelf.model("Location", {
   tableName: "locations",
   hasTimestamps: ["created_at", "updated_at"],
+  stores() {
+    return this.hasMany(Store, 'location_id')
+  },
   byPoint: function (center, cb) {
     var bounds = geolib.getBoundsOfDistance(center, 750);
     console.log(bounds);

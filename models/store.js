@@ -4,6 +4,7 @@ var _ = require("underscore");
 var dbconnection = require("../middlewares/dbconnection");
 var db = new dbconnection();
 var Chain = require("../models/chain")
+var Location = require("../models/location")
 
 let Store = db.bookshelf.model(
   "Store",
@@ -12,6 +13,9 @@ let Store = db.bookshelf.model(
     hasTimestamps: ["created_at", "updated_at"],
     chain: function() {
       return this.belongsTo(Chain);
+    },
+    location: function() {
+      return this.belongsTo(Location);
     },
     nearby: function (locations, cb) {
       if (locations.length == 0){return cb([]); }
@@ -23,6 +27,34 @@ let Store = db.bookshelf.model(
         .fetchAll({
           withRelated: [{'chain': function(qb) {
             qb.column('id', 'name', 'description');
+          }}]
+        })
+        .then((stores) => {
+          console.log("Stores -->" + stores.models.length);
+          if (stores.models.length > 0) {
+            cb(stores.models);
+          } else {
+            cb([]);
+          }
+        })
+        .catch((err) => {
+          console.log("err", err);
+          cb([]);
+        });
+    },
+    load_stores: function(store_ids, cb) {
+      if (store_ids.length == 0){ cb([]); }
+
+      this.query(function(qb) {        
+        qb.whereIn("id", store_ids.split(","));
+        //console.log(JSON.stringify(qb));
+      })
+        .fetchAll({
+          withRelated: [{'chain': function(qb) {
+            qb.column('id', 'name', 'description');
+          }},
+          {'location': function(qb) {
+            qb.column('id', 'city', 'address', 'status', 'latitude', 'longitude');
           }}]
         })
         .then((stores) => {
