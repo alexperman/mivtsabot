@@ -8,7 +8,7 @@ function dbconnection(){
       connection: {
         connectionString: process.env.DATABASE_URL,
         ssl: { rejectUnauthorized: false },
-      }
+      },
       // for local testing
       //connection: {host: "localhost", user: "postgres", password: "postgres", database: "discountshub_development" },
       //ssl: true 
