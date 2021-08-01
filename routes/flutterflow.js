@@ -64,7 +64,8 @@ function getDistance2Point(point, location){
 }
 
 function to_flutterflow(stores, point = {}, locations = []){  
-  return stores.map( store => {  
+  let stores_array = [];
+  stores_array =  stores.map( store => {  
     //console.log("Store -- " + JSON.stringify(store) + " - - - " + store.get("name"))    
     
     if(locations.length > 0){
@@ -91,6 +92,8 @@ function to_flutterflow(stores, point = {}, locations = []){
     console.log("rStore -- " + JSON.stringify(rStore))
     return rStore; 
   })
+
+  return {"supermarkets": stores_array}
 }
 
 //  http://localhost:3001/flutterflow/supermarkets/""
