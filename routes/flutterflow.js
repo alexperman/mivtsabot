@@ -80,11 +80,11 @@ function to_flutterflow(stores, point = {}, locations = []){
     
     var rStore = {
       "id": store.get("id"),
-      "chain": chain.get("description"),
-      "name": store.get("name"),
-      "city": location.get("city"),
-      "address": location.get("address"),
-      "chain_img": chain.get("name"),
+      //"chain": chain.get("description"),
+      //"name": store.get("name"),
+      //"city": location.get("city"),
+      //"address": location.get("address"),
+      //"chain_img": chain.get("name"),
       "discounts_no":  Math.round((Math.random() * (250 - 75) + 75)),
       "location": geo_location(location),
       "distance_in_metr": getDistance2Point(point, location),
