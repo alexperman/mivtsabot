@@ -102,7 +102,7 @@ router.get("/supermarkets/:store_ids", async function (req, res, next) {
       console.log( req.params["store_ids"])
       const store = new Store();      
         store.load_stores(req.params["store_ids"], (stores)=>{
-          res.status(201).send(to_flutterflow(stores));
+          res.status(201).json(to_flutterflow(stores));
       });     
     } catch(err){
       res.status(201).json({ error: err.message || err.toString() });
@@ -120,7 +120,7 @@ router.get("/supermarkets/search/:full_address", async function (req, res, next)
       
       const store = new Store();      
       store.nearby(near_locations, (stores)=>{
-        res.status(201).send(to_flutterflow(stores, point, near_locations));
+        res.status(201).json(to_flutterflow(stores, point, near_locations));
       });
     });
   } catch(err){
@@ -130,7 +130,7 @@ router.get("/supermarkets/search/:full_address", async function (req, res, next)
 
 //http://localhost:3001/flutterflow/superproducts/1-2-3-4/100
 router.get("/superproducts/:supermarkets/:category", function (req, res, next) {
-    res.status(201).send( req.params["supermarkets"], req.params["category"]);
+    res.status(201).json( req.params["supermarkets"], req.params["category"]);
 });
 
 
