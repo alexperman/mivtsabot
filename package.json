@@ -16,6 +16,7 @@
     "bookshelf-json-columns": "^3.0.0",
     "bootstrap-icons": "^1.5.0",
     "cheerio": "^1.0.0-rc.10",
+    "cors": "^2.8.5",
     "csv-parse": "^4.16.0",
     "csv-parser": "^3.0.0",
     "csv-writer": "^1.6.0",

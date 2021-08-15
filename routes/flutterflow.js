@@ -1,4 +1,5 @@
 var express = require("express");
+var cors = require('cors')
 var router = express.Router();
 const fs = require("fs");
 const axios = require("axios");
@@ -91,13 +92,13 @@ function to_flutterflow(stores, point = {}, locations = []){
     }
     console.log("rStore -- " + JSON.stringify(rStore))
     return rStore; 
-  })
+  })  
 
   return {"supermarkets": stores_array}
 }
 
 //  http://localhost:3001/flutterflow/supermarkets/""
-router.get("/supermarkets/:store_ids", async function (req, res, next) {
+router.get("/supermarkets/:store_ids", cors(), async function (req, res, next) {
     try{
       console.log( req.params["store_ids"])
       const store = new Store();      

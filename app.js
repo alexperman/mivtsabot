@@ -1,4 +1,5 @@
 var express = require('express');
+var cors = require('cors')
 var path = require('path');
 var bodyParser = require('body-parser');
 var flash = require('express-flash');
@@ -38,6 +39,7 @@ app.use(session({
 app.use(flash());
 app.use(expressValidator());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors())
 
 app.use('/', index);
 //app.use('/payload', payload);
