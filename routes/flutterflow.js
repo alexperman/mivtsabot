@@ -146,7 +146,7 @@ function to_flutterflow(stores, center = {}, store_ids = ""){
     return rStore;
   })  
 
-  return {"supermarkets": uniqueByLocation(stores_array)}
+  return {"supermarkets": uniqueByLocation(stores_array).sort((a, b) => a.distance_in_metr > b.distance_in_metr && 1 || -1)}
 }
 
 async function addMarkers2Firebase(stores) {  
