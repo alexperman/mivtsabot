@@ -6,18 +6,13 @@ const axios = require("axios");
 var geolib = require("geolib");
 
 var NodeGeocoder = require('node-geocoder');
-var options_cage = {
-  provider: 'opencage',
-  httpAdapter: 'http', // Default
-  apiKey: '7d07bf0838804e0e9690c54da1d64cf5', // for Mapquest, OpenCage, Google Premier
-  formatter: 'json' // 'gpx', 'string', ...
-};
+
 
 
 var options = {
   provider: 'google',
   httpAdapter: 'https', // Default
-  apiKey: 'AIzaSyD_42_4wO4YlRZQ__2SBOD1SRvdZue3Oo8', // for Mapquest, OpenCage, Google Premier
+  apiKey: process.env.GOOGLE_API_KEY ,  // for Mapquest, OpenCage, Google Premier
   formatter: 'json',
   language: 'he',
   region: 'IL',
