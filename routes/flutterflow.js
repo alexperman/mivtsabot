@@ -6,14 +6,34 @@ const axios = require("axios");
 var geolib = require("geolib");
 
 var NodeGeocoder = require('node-geocoder');
+var options_cage = {
+  provider: 'opencage',
+  httpAdapter: 'http', // Default
+  apiKey: '7d07bf0838804e0e9690c54da1d64cf5', // for Mapquest, OpenCage, Google Premier
+  formatter: 'json' // 'gpx', 'string', ...
+};
+
+
 var options = {
-    provider: 'opencage',
-    httpAdapter: 'http', // Default
-    apiKey: '7d07bf0838804e0e9690c54da1d64cf5', // for Mapquest, OpenCage, Google Premier
-    formatter: 'json' // 'gpx', 'string', ...
-  };
-  
+  provider: 'google',
+  httpAdapter: 'https', // Default
+  apiKey: 'AIzaSyD_42_4wO4YlRZQ__2SBOD1SRvdZue3Oo8', // for Mapquest, OpenCage, Google Premier
+  formatter: 'json',
+  language: 'he',
+  region: 'IL',
+  minConfidence: 0.5,
+  limit: 15
+};
+
 var geocoder = NodeGeocoder(options);
+
+
+var admin = require("firebase-admin");
+var serviceAccount = require("../mivtsaim-firebase-adminsdk.json");
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount)
+});
+const db = admin.firestore();  
 
 var Store = require('../models/store');
 var Location = require('../models/location');
@@ -48,10 +68,8 @@ const store_img = {
 }
 
 
-async function convertAddrees2Point(req) {
-    console.log( req.params["full_address"])
-    var point = "Israel," + ","+ req.params["full_address"]
-    
+async function convertAddrees2Point(address) {   
+    let point = "Israel," + ","+ address;    
     try{
       const results =  await geocoder.geocode( point) ;
       console.log(results);
@@ -75,7 +93,7 @@ async function convertAddrees2Point(req) {
 }
 
 function geo_location(location){
-  console.log("Geo Location " + location)
+  //console.log("Geo Location " + JSON.stringify(location));
   if(location == undefined){
     return {};
   }
@@ -94,20 +112,23 @@ function getDistance2Point(point, location){
   }
 }
 
-function to_flutterflow(stores, point = {}, locations = []){  
+function uniqueByLocation(array){
+  let results = [];
+  for(let i = 0; i < array.length; i++){
+    let store = array[i];
+    if(results.map(s=>JSON.stringify(s['location'])).indexOf(JSON.stringify(store['location'])) == -1){
+      results.push(store)
+    }
+  }
+
+  return results;
+}
+
+function to_flutterflow(stores, center = {}, store_ids = ""){  
   let stores_array = [];
   stores_array =  stores.map( store => {  
-    //console.log("Store -- " + JSON.stringify(store) + " - - - " + store.get("name"))    
-    
-    if(locations.length > 0){
-      var location = locations.find(loc => { return loc.id === store.get('location_id').toString() })
-    } else {
-      var location = store.related('location');
-    }
-    console.log("Location -- " + JSON.stringify(location) )
-    
-    var chain = store.related('chain')
-    //console.log("chain -- " + JSON.stringify(chain) )
+    let chain = store.related('chain')
+    let location = store.related('location')
     
     var rStore = {
       "id": store.get("id"),
@@ -118,51 +139,82 @@ function to_flutterflow(stores, point = {}, locations = []){
       "chain_img": store_img[chain.get("name")],
       "discounts_no":  Math.round((Math.random() * (250 - 75) + 75)),
       "location": geo_location(location),
-      "distance_in_metr": getDistance2Point(point, location),
+      "distance_in_metr": getDistance2Point(center, location),
+      "selected": store_ids.includes(store.get("id")),
     }
-    console.log("rStore -- " + JSON.stringify(rStore))
-    return rStore; 
+    console.log("\n rStore -- " + JSON.stringify(rStore) )
+    return rStore;
   })  
 
-  return {"supermarkets": stores_array}
+  return {"supermarkets": uniqueByLocation(stores_array)}
 }
 
-//  http://localhost:3001/flutterflow/supermarkets/""
-router.get("/supermarkets/:store_ids", cors(), async function (req, res, next) {
-    try{
-      console.log( req.params["store_ids"])
-      const store = new Store();      
-        store.load_stores(req.params["store_ids"], (stores)=>{
-          res.status(201).json(to_flutterflow(stores));
-      });     
-    } catch(err){
-      res.status(201).json({ error: err.message || err.toString() });
+async function addMarkers2Firebase(stores) {  
+  let markers = to_markers(stores)
+  console.log("Markers :" + markers.length)
+  if (markers.length > 0){    
+    for(const marker of markers){
+      console.log("Update marker : " + marker["store_id"])
+      const storeMarkersRef = db.collection('store_locations').doc(marker["store_id"])
+      const res = await storeMarkersRef.set(marker, {merge: true})
     }
-});
+  } 
+}
 
-//  http://localhost:3001/flutterflow/supermarkets/search/פתח תקווה משה סנה 32
-router.get("/supermarkets/search/:full_address", async function (req, res, next) {
+function  to_markers(stores){
+  let markers_arr = [];
+
+  markers_arr =  stores.map( store => {  
+    var location = store.related('location');
+    console.log("Location ", JSON.stringify(location));
+    if(location.get("longitude") == null || location.get("latitude") == null) { return; }
+
+    var marker = {
+      "store_id": store.get("id"),
+      "location":{
+        "longitude": location.get("longitude"),
+        "latitude": location.get("latitude"),
+      }
+    }
+    console.log("Marker -- " + JSON.stringify(marker))
+    return marker;
+  })
+
+  return markers_arr.filter(function (el) {
+    return el != null;
+  });
+}
+
+router.get("/markers", function (req, res) {
   try{
-    var point = await convertAddrees2Point(req);
+    const store = new Store();      
+    store.markers((stores)=>{
+      res.status(201).json(addMarkers2Firebase(stores));
+    });     
+  } catch(err){
+    res.status(201).json({ error: err.message || err.toString() });
+  }
+})
+
+//  http://localhost:3001/flutterflow/supermarkets/פתח תקווה משה סנה 32/"1,2,2"
+router.get("/supermarkets/:address/:store_ids", cors(), async function (req, res, next) {
+  try{
+    console.log("\t Find in : " + req.params["address"])
+    var point = await convertAddrees2Point(req.params["address"]);
     console.log("Point: " + JSON.stringify(point));
+
     const location = new Location();       
     location.byPoint(point, (near_locations) => {
       console.log("Near " + near_locations.length);
       
       const store = new Store();      
       store.nearby(near_locations, (stores)=>{
-        res.status(201).json(to_flutterflow(stores, point, near_locations));
+        res.status(201).json(to_flutterflow(stores, point,  req.params["store_ids"]));
       });
     });
   } catch(err){
     res.status(201).json({ error: err.message || err.toString() });
   }
 });
-
-//http://localhost:3001/flutterflow/superproducts/1-2-3-4/100
-router.get("/superproducts/:supermarkets/:category", function (req, res, next) {
-    res.status(201).json( req.params["supermarkets"], req.params["category"]);
-});
-
 
 module.exports = router;

@@ -17,6 +17,28 @@ let Store = db.bookshelf.model(
     location: function() {
       return this.belongsTo(Location);
     },
+    markers: function (cb) {
+      this.query(function(qb) {
+        qb.select('id', 'location_id')
+      })
+      .fetchAll({
+        withRelated: [{'location': function(qb) {
+          qb.column('id', 'latitude', 'longitude');
+        }}]
+      })
+      .then((stores) => {
+        console.log("Stores -->" + stores.models.length);
+        if (stores.models.length > 0) {
+          cb(stores.models);
+        } else {
+          cb([]);
+        }
+      })
+      .catch((err) => {
+        console.log("err", err);
+        cb([]);
+      });
+    },
     nearby: function (locations, cb) {
       if (locations.length == 0){return cb([]); }
       this.query(function(qb) {
@@ -27,6 +49,8 @@ let Store = db.bookshelf.model(
         .fetchAll({
           withRelated: [{'chain': function(qb) {
             qb.column('id', 'name', 'description');
+          }},{'location': function(qb) {
+            qb.column('id', 'latitude', 'longitude');
           }}]
         })
         .then((stores) => {

@@ -12,7 +12,7 @@ let Location = db.bookshelf.model("Location", {
     return this.hasMany(Store, 'location_id')
   },
   byPoint: function (center, cb) {
-    var bounds = geolib.getBoundsOfDistance(center, 750);
+    var bounds = geolib.getBoundsOfDistance(center, 1000);
     console.log(bounds);
     this.query(function(qb){
         qb.where("latitude", ">=",  bounds[0]["latitude"])

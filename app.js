@@ -15,9 +15,9 @@ var flutterflow = require('./routes/flutterflow');
 
 var expressValidator = require('express-validator');
 
-const FirebaseAdmin = require('./middlewares/firebase-admin');
-const firebase_admin = new FirebaseAdmin();
-firebase_admin.initListeners();
+//const FirebaseAdmin = require('./middlewares/firebase-admin');
+//const firebase_admin = new FirebaseAdmin();
+//firebase_admin.initListeners();
 
 var app = express();
 global.appRoot = path.resolve(__dirname);
